@@ -1,8 +1,10 @@
 name: Unit Tests
 run-name: Unit tests for changes made by @${{ github.actor }}
 on: [push]
+permissions:
+  contents: write
 jobs:
-    Unit-Test-Ubuntu:
+    Unit-Test-Base:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
