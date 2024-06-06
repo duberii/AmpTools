@@ -7,11 +7,9 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v4
-              with:
-                repository: duberii/AmpTools
             - name: Installing ROOT
               id: root-install
-              uses: ./.github/workflows/install_ROOT.yaml
+              uses: .github/workflows/install_ROOT.yaml
             - name: Configure ROOT Environment
               run: |
                 echo "ROOTSYS=${{steps.root-install.outputs.ROOTSYS}}">> $GITHUB_ENV
