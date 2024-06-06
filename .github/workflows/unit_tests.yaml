@@ -67,8 +67,7 @@ jobs:
                 $DALITZ/DalitzExe/fitAmplitudes dalitz3.cfg
                 $DALITZ/DalitzExe/plotResults dalitz3.fit dalitz3.root
                 root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(\"dalitz3.root\")"
-                rm $AMPTOOLS_HOME/*.png
-                mv *.png $AMPTOOLS_HOME/unit_tests
+                mv -f *.png $AMPTOOLS_HOME/unit_tests
             - name: Commit files
               id: commit
               run: |
