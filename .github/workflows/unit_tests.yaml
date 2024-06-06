@@ -30,8 +30,8 @@ jobs:
                 echo $AMPTOOLS_HOME
             - name: Running Tutorial
               run: |
-                pwd
-                ls
+                echo $DALITZ
+                echo $AMPTOOLS_HOME
                 cd $DALITZ/run
                 $DALITZ/DalitzExe/generatePhaseSpace phasespace.gen.root 100000
                 $DALITZ/DalitzExe/plotData phasespace.gen.root plots.phasespace.gen.root
