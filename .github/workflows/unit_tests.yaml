@@ -34,37 +34,37 @@ jobs:
                 cd $DALITZ/run
                 $DALITZ/DalitzExe/generatePhaseSpace phasespace.gen.root 100000
                 $DALITZ/DalitzExe/plotData phasespace.gen.root plots.phasespace.gen.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(plots.phasespace.gen.root)"
+                root -l -b -q "${AMPTOOLS_HOME}/unit_tests/plot_all_histograms.C(\"plots.phasespace.gen.root\")"
                 $DALITZ/DalitzExe/toyAcceptance phasespace.gen.root plots.phasespace.acc.root
                 $DALITZ/DalitzExe/plotData phasespace.acc.root plots.phasespace.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(plots.phasespace.acc.root)"
+                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.phasespace.acc.root\")"
                 $DALITZ/DalitzExe/generatePhysics dalitz1.cfg physics.gen.root 100000
                 $DALITZ/DalitzExe/plotData physics.gen.root plots.physics.gen.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(plots.physics.gen.root)"
+                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.gen.root\")"
                 $DALITZ/DalitzExe/toyAccuracy physics.gen.root physics.acc.root
                 $DALITZ/DalitzExe/plotData physics.acc.root plots.physics.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(plots.physics.acc.root)"
+                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc.root\")"
                 $DALITZ/DalitzExe/fitAmplitudes dalitz1.cfg
                 $DALITZ/DalitzExe/plotResults dalitz1.fit dalitz1.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(dalitz1.root)"
+                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(dalitz1.root\")"
                 $DALITZ/DalitzExe/generatePhysics dalitz2.cfg physics.gen2.root 100000
                 $DALITZ/DalitzExe/plotData physics.gen2.root plots.physics.gen2.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(plots.physics.gen2.root)"
+                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.gen2.root\")"
                 $DALITZ/DalitzExe/toyAccuracy physics.gen2.root physics.acc2.root
                 $DALITZ/DalitzExe/plotData physics.acc2.root plots.physics.acc2.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(plots.physics.acc2.root)"
+                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc2.root\")"
                 $DALITZ/DalitzExe/fitAmplitudes dalitz2.cfg
                 $DALITZ/DalitzExe/plotResults dalitz2.fit dalitz2.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(dalitz2.root)"
+                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(dalitz2.root\")"
                 $DALITZ/DalitzExe/generatePhysics dalitz3.cfg physics.gen3.root 100000
                 $DALITZ/DalitzExe/plotData physics.gen3.root plots.physics.gen3.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(plots.physics.gen3.root)"
+                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.gen3.root\")"
                 $DALITZ/DalitzExe/toyAccuracy physics.gen3.root physics.acc3.root
                 $DALITZ/DalitzExe/plotData physics.acc3.root plots.physics.acc3.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(plots.physics.acc3.root)"
+                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc3.root\")"
                 $DALITZ/DalitzExe/fitAmplitudes dalitz3.cfg
                 $DALITZ/DalitzExe/plotResults dalitz3.fit dalitz3.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(dalitz3.root)"
+                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(dalitz3.root\")"
                 mv *.png $AMPTOOLS_HOME/unit_tests
             - name: Commit files
               id: commit
