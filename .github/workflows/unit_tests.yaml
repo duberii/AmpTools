@@ -19,9 +19,8 @@ jobs:
                 echo "LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
             - name: Building AmpTools
               run: |
-                ls
                 mkdir Tutorials/Dalitz/lib
-                mkdir -p Tutorials/Dalitz/bin/ampPlotter 
+                mkdir -p Tutorials/Dalitz/bin
                 make
                 echo "AMPTOOLS_HOME=$(pwd)" >> $GITHUB_ENV
                 echo "AMPTOOLS=$AMPTOOLS_HOME/AmpTools" >> $GITHUB_ENV
