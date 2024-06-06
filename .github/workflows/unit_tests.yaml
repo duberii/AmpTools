@@ -5,6 +5,8 @@ jobs:
     Unit-Test-Ubuntu:
         runs-on: ubuntu-latest
         steps:
+            - name: Checkout
+              uses: actions/checkout@v4
             - name: Installing ROOT
               id: root-install
               uses: ./.github/workflows/install_ROOT.yaml
