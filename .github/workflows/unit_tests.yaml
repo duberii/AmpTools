@@ -75,6 +75,7 @@ jobs:
                 git config --local user.email "action@github.com"
                 git config --local user.name "github-actions"
                 git add unit_tests
+                git commit -m "Added pngs from unit tests"
             - name: Push changes
               uses: ad-m/github-push-action@master
               with:
