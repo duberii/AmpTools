@@ -22,7 +22,8 @@ jobs:
                 mkdir Tutorials/Dalitz/lib
                 mkdir -p Tutorials/Dalitz/bin
                 make
-                echo "AMPTOOLS_HOME=$(pwd)" >> $GITHUB_ENV
+                export AMPTOOLS_HOME = $(pwd)
+                echo "AMPTOOLS_HOME=$AMPTOOLS_HOME" >> $GITHUB_ENV
                 echo "AMPTOOLS=$AMPTOOLS_HOME/AmpTools" >> $GITHUB_ENV
                 echo "AMPPLOTTER=$AMPTOOLS_HOME/AmpPlotter" >> $GITHUB_ENV
                 echo "DALITZ=$AMPTOOLS_HOME/Tutorials/Dalitz" >> $GITHUB_ENV
@@ -30,8 +31,6 @@ jobs:
                 echo $AMPTOOLS_HOME
             - name: Running Tutorial
               run: |
-                echo $DALITZ
-                echo $AMPTOOLS_HOME
                 cd $DALITZ/run
                 $DALITZ/DalitzExe/generatePhaseSpace phasespace.gen.root 100000
                 $DALITZ/DalitzExe/plotData phasespace.gen.root plots.phasespace.gen.root
