@@ -22,7 +22,7 @@ jobs:
                 mkdir Tutorials/Dalitz/lib
                 mkdir -p Tutorials/Dalitz/bin
                 make
-                export AMPTOOLS_HOME = $(pwd)
+                export AMPTOOLS_HOME=$(pwd)
                 echo "AMPTOOLS_HOME=$AMPTOOLS_HOME" >> $GITHUB_ENV
                 echo "AMPTOOLS=$AMPTOOLS_HOME/AmpTools" >> $GITHUB_ENV
                 echo "AMPPLOTTER=$AMPTOOLS_HOME/AmpPlotter" >> $GITHUB_ENV
