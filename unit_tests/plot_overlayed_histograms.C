@@ -34,12 +34,14 @@ void plot_overlayed_histograms(const std::string filename) {
     hm12acc2 -> Draw("hist,same");
     TString fout1(filename + ".acc.png");
     c1->SaveAs(fout1);
+    TCanvas *c2 = new TCanvas("c2", "c2", 800, 600);
     hm12gen -> Draw("hist");
     hm12gen1 -> Draw("hist,same");
     hm12gen2 -> Draw("hist,same");
     TString fout2(filename + ".gen.png");
-    c1->SaveAs(fout2);
+    c2->SaveAs(fout2);
 
     delete c1;
+    delete c2;
     inputFile->Close();
 }
