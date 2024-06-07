@@ -37,7 +37,7 @@ jobs:
                 $DALITZ/DalitzExe/generatePhaseSpace phasespace.gen.root 100000
                 $DALITZ/DalitzExe/plotData phasespace.gen.root plots.phasespace.gen.root
                 root -l -b -q "${AMPTOOLS_HOME}/unit_tests/plot_all_histograms.C(\"plots.phasespace.gen.root\")"
-                $DALITZ/DalitzExe/toyAcceptance phasespace.gen.root plots.phasespace.acc.root
+                $DALITZ/DalitzExe/toyAcceptance phasespace.gen.root phasespace.acc.root
                 $DALITZ/DalitzExe/plotData phasespace.acc.root plots.phasespace.acc.root
                 root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.phasespace.acc.root\")"
                 $DALITZ/DalitzExe/generatePhysics dalitz1.cfg physics.gen.root 100000
