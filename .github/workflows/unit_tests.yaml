@@ -70,6 +70,7 @@ jobs:
                 mv -f *.png $AMPTOOLS_HOME/unit_tests
             - name: Commit files
               id: commit
+              if: false
               run: |
                 cd $AMPTOOLS_HOME
                 git config --local user.email "action@github.com"
@@ -78,6 +79,6 @@ jobs:
                 git commit -m "Added pngs from unit tests"
             - name: Push changes
               uses: ad-m/github-push-action@master
+              if: false
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
-                branch: Unit-Tests
