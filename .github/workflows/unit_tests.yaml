@@ -22,7 +22,7 @@ jobs:
             - name: Building AmpTools
               run: |
                 mkdir Tutorials/Dalitz/lib
-                mkdir -p Tutorials/Dalitz/bin
+                mkdir Tutorials/Dalitz/bin
                 make
                 export AMPTOOLS_HOME=$(pwd)
                 echo "AMPTOOLS_HOME=$AMPTOOLS_HOME" >> $GITHUB_ENV
@@ -100,6 +100,8 @@ jobs:
                 echo "LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
             - name: Building AmpTools
               run: |
+                mkdir Tutorials/Dalitz/lib
+                mkdir Tutorials/Dalitz/bin
                 make mpi
                 export AMPTOOLS_HOME=$(pwd)
                 echo "AMPTOOLS_HOME=$AMPTOOLS_HOME" >> $GITHUB_ENV
