@@ -125,6 +125,7 @@ jobs:
                 $DALITZ/DalitzExe/toyAcceptance physics.gen.root physics.acc.root
                 $DALITZ/DalitzExe/plotData physics.acc.root plots.physics.acc.root
                 root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc.root\")"
+                ps aux
                 mpirun -n 3 $DALITZ/DalitzExe/fitAmplitudesMPI dalitz1.cfg
                 $DALITZ/DalitzExe/plotResults dalitz1.fit dalitz1.root
                 root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(\"dalitz1.root\")"
