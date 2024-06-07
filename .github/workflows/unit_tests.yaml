@@ -111,7 +111,7 @@ jobs:
             - name: Running Tutorial
               run: |
                 cd $DALITZ/DalitzExe
-                make
+                make MPI=1
                 cd $DALITZ/run
                 $DALITZ/DalitzExe/generatePhaseSpace phasespace.gen.root 100000
                 $DALITZ/DalitzExe/plotData phasespace.gen.root plots.phasespace.gen.root
