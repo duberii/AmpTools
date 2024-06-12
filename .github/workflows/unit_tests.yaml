@@ -147,4 +147,3 @@ jobs:
                 $DALITZ/DalitzExe/plotResults dalitz3.fit dalitz3.root
                 root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(\"dalitz3.root\")"
                 mv -f *.png $AMPTOOLS_HOME/unit_tests
-                
