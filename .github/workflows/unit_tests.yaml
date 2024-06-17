@@ -32,7 +32,7 @@ jobs:
                 $DALITZ/bin/generatePhysics dalitz1.cfg physics.gen.root 100000
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
                 $DALITZ/bin/fitAmplitudes dalitz1.cfg
-                ls
+                ls $UNIT_TESTS
                 $UNIT_TESTS/compare_likelihoods dalitz1.cfg
             - name: dalitz2
               if: success() || failure()
