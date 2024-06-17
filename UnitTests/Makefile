@@ -15,6 +15,7 @@ endif
 
 # if there are other libraries to include, the include path can be added here
 INC_DIR := -I$(PROJECT_LIB)
+INC_DIR += -I$(AMPTOOLS_HOME)/Tutorials/Dalitz
 LIB_DIR := -L$(PROJECT_HOME)/lib
 LIB_DIR += -L$(AMPTOOLS_HOME)/Tutorials/Dalitz/DalitzLib
 EXTRA_LIBS := -lDalitz
