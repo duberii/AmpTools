@@ -19,6 +19,7 @@ jobs:
                 echo "AMPTOOLS=$AMPTOOLS_HOME/AmpTools" >> $GITHUB_ENV
                 echo "AMPPLOTTER=$AMPTOOLS_HOME/AmpPlotter" >> $GITHUB_ENV
                 echo "DALITZ=$AMPTOOLS_HOME/Tutorials/Dalitz" >> $GITHUB_ENV
+                echo "UNIT_TESTS=$AMPTOOLS_HOME/unit_tests" >> $GITHUB_ENV
             - name: Generating Phase Space
               run: |
                 cd $DALITZ/run
@@ -31,6 +32,7 @@ jobs:
                 $DALITZ/bin/generatePhysics dalitz1.cfg physics.gen.root 100000
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
                 $DALITZ/bin/fitAmplitudes dalitz1.cfg
+                $UNIT_TESTS/compare_likelihoods dalitz1.cfg
             - name: dalitz2
               if: success() || failure()
               run: |
@@ -38,6 +40,7 @@ jobs:
                 $DALITZ/bin/generatePhysics dalitz2.cfg physics.gen.root 100000
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
                 $DALITZ/bin/fitAmplitudes dalitz2.cfg
+                $UNIT_TESTS/compare_likelihoods dalitz2.cfg
             - name: dalitz3
               if: success() || failure()
               run: |
@@ -45,6 +48,7 @@ jobs:
                 $DALITZ/bin/generatePhysics dalitz3.cfg physics.gen.root 100000
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
                 $DALITZ/bin/fitAmplitudes dalitz3.cfg
+                $UNIT_TESTS/compare_likelihoods dalitz3.cfg
     Unit-Test-MPI:
         runs-on: self-hosted
         steps:
