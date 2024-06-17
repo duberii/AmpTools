@@ -19,7 +19,7 @@ jobs:
                 echo "AMPTOOLS=$AMPTOOLS_HOME/AmpTools" >> $GITHUB_ENV
                 echo "AMPPLOTTER=$AMPTOOLS_HOME/AmpPlotter" >> $GITHUB_ENV
                 echo "DALITZ=$AMPTOOLS_HOME/Tutorials/Dalitz" >> $GITHUB_ENV
-                echo "UNIT_TESTS=$AMPTOOLS_HOME/unit_tests" >> $GITHUB_ENV
+                echo "UNIT_TESTS=$AMPTOOLS_HOME/UnitTests" >> $GITHUB_ENV
             - name: Generating Phase Space
               run: |
                 cd $DALITZ/run
@@ -32,6 +32,7 @@ jobs:
                 $DALITZ/bin/generatePhysics dalitz1.cfg physics.gen.root 100000
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
                 $DALITZ/bin/fitAmplitudes dalitz1.cfg
+                ls
                 $UNIT_TESTS/compare_likelihoods dalitz1.cfg
             - name: dalitz2
               if: success() || failure()
