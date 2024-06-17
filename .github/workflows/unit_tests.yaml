@@ -60,43 +60,32 @@ jobs:
                 echo "AMPTOOLS=$AMPTOOLS_HOME/AmpTools" >> $GITHUB_ENV
                 echo "AMPPLOTTER=$AMPTOOLS_HOME/AmpPlotter" >> $GITHUB_ENV
                 echo "DALITZ=$AMPTOOLS_HOME/Tutorials/Dalitz" >> $GITHUB_ENV
-            - name: Running Tutorial
+            - name: Generating Phase Space
               run: |
                 cd $DALITZ/run
-                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000 >> out.txt
-                $DALITZ/bin/plotData phasespace.gen.root plots.phasespace.gen.root >> out.txt
-                root -l -b -q "${AMPTOOLS_HOME}/unit_tests/plot_all_histograms.C(\"plots.phasespace.gen.root\")" >> out.txt
-                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root >> out.txt
-                $DALITZ/bin/plotData phasespace.acc.root plots.phasespace.acc.root >> out.txt
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.phasespace.acc.root\")"
+                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000
+                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root
+            - name: dalitz1
+              if: success() || failure()
+              run: |
+                cd $DALITZ/run
                 $DALITZ/bin/generatePhysics dalitz1.cfg physics.gen.root 100000
-                $DALITZ/bin/plotData physics.gen.root plots.physics.gen.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.gen.root\")"
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
-                $DALITZ/bin/plotData physics.acc.root plots.physics.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc.root\")"
                 mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI dalitz1.cfg
-                $DALITZ/bin/plotResults dalitz1.fit dalitz1.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(\"dalitz1.root\")"
+            - name: dalitz2
+              if: success() || failure()
+              run: |
+                cd $DALITZ/run
                 $DALITZ/bin/generatePhysics dalitz2.cfg physics.gen.root 100000
-                $DALITZ/bin/plotData physics.gen.root plots.physics.gen.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.gen.root\")"
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
-                $DALITZ/bin/plotData physics.acc.root plots.physics.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc.root\")"
                 mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI dalitz2.cfg
-                $DALITZ/bin/plotResults dalitz2.fit dalitz2.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(\"dalitz2.root\")"
+            - name: dalitz3
+              if: success() || failure()
+              run: |
+                cd $DALITZ/run
                 $DALITZ/bin/generatePhysics dalitz3.cfg physics.gen.root 100000
-                $DALITZ/bin/plotData physics.gen.root plots.physics.gen.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.gen.root\")"
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
-                $DALITZ/bin/plotData physics.acc.root plots.physics.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc.root\")"
                 mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI dalitz3.cfg
-                $DALITZ/bin/plotResults dalitz3.fit dalitz3.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(\"dalitz3.root\")"
-                mv -f *.png $AMPTOOLS_HOME/unit_tests
     Unit-Test-GPU:
         runs-on: self-hosted
         steps:
@@ -112,43 +101,32 @@ jobs:
                 echo "AMPTOOLS=$AMPTOOLS_HOME/AmpTools" >> $GITHUB_ENV
                 echo "AMPPLOTTER=$AMPTOOLS_HOME/AmpPlotter" >> $GITHUB_ENV
                 echo "DALITZ=$AMPTOOLS_HOME/Tutorials/Dalitz" >> $GITHUB_ENV
-            - name: Running Tutorial
+            - name: Generating Phase Space
               run: |
                 cd $DALITZ/run
                 $DALITZ/bin/generatePhaseSpace_GPU phasespace.gen.root 100000
-                $DALITZ/bin/plotData_GPU phasespace.gen.root plots.phasespace.gen.root
-                root -l -b -q "${AMPTOOLS_HOME}/unit_tests/plot_all_histograms.C(\"plots.phasespace.gen.root\")"
                 $DALITZ/bin/toyAcceptance_GPU phasespace.gen.root phasespace.acc.root
-                $DALITZ/bin/plotData_GPU phasespace.acc.root plots.phasespace.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.phasespace.acc.root\")"
+            - name: dalitz1
+              if: success() || failure()
+              run: |
+                cd $DALITZ/run
                 $DALITZ/bin/generatePhysics_GPU dalitz1.cfg physics.gen.root 100000
-                $DALITZ/bin/plotData_GPU physics.gen.root plots.physics.gen.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.gen.root\")"
                 $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
-                $DALITZ/bin/plotData_GPU physics.acc.root plots.physics.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc.root\")"
                 $DALITZ/bin/fitAmplitudes_GPU dalitz1.cfg
-                $DALITZ/bin/plotResults_GPU dalitz1.fit dalitz1.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(\"dalitz1.root\")"
+            - name: dalitz2
+              if: success() || failure()
+              run: |
+                cd $DALITZ/run
                 $DALITZ/bin/generatePhysics_GPU dalitz2.cfg physics.gen.root 100000
-                $DALITZ/bin/plotData_GPU physics.gen.root plots.physics.gen.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.gen.root\")"
                 $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
-                $DALITZ/bin/plotData_GPU physics.acc.root plots.physics.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc.root\")"
                 $DALITZ/bin/fitAmplitudes_GPU dalitz2.cfg
-                $DALITZ/bin/plotResults_GPU dalitz2.fit dalitz2.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(\"dalitz2.root\")"
+            - name: dalitz3
+              if: success() || failure()
+              run: |
+                cd $DALITZ/run
                 $DALITZ/bin/generatePhysics_GPU dalitz3.cfg physics.gen.root 100000
-                $DALITZ/bin/plotData_GPU physics.gen.root plots.physics.gen.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.gen.root\")"
                 $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
-                $DALITZ/bin/plotData_GPU physics.acc.root plots.physics.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc.root\")"
                 $DALITZ/bin/fitAmplitudes_GPU dalitz3.cfg
-                $DALITZ/bin/plotResults_GPU dalitz3.fit dalitz3.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(\"dalitz3.root\")"
-                mv -f *.png $AMPTOOLS_HOME/unit_tests
     Unit-Test-MPI-GPU:
         runs-on: self-hosted
         steps:
@@ -164,40 +142,29 @@ jobs:
                 echo "AMPTOOLS=$AMPTOOLS_HOME/AmpTools" >> $GITHUB_ENV
                 echo "AMPPLOTTER=$AMPTOOLS_HOME/AmpPlotter" >> $GITHUB_ENV
                 echo "DALITZ=$AMPTOOLS_HOME/Tutorials/Dalitz" >> $GITHUB_ENV
-            - name: Running Tutorial
+            - name: Generating Phase Space
               run: |
                 cd $DALITZ/run
                 $DALITZ/bin/generatePhaseSpace_GPU phasespace.gen.root 100000
-                $DALITZ/bin/plotData_GPU phasespace.gen.root plots.phasespace.gen.root
-                root -l -b -q "${AMPTOOLS_HOME}/unit_tests/plot_all_histograms.C(\"plots.phasespace.gen.root\")"
                 $DALITZ/bin/toyAcceptance_GPU phasespace.gen.root phasespace.acc.root
-                $DALITZ/bin/plotData_GPU phasespace.acc.root plots.phasespace.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.phasespace.acc.root\")"
+            - name: dalitz1
+              if: success() || failure()
+              run: |
+                cd $DALITZ/run
                 $DALITZ/bin/generatePhysics_GPU dalitz1.cfg physics.gen.root 100000
-                $DALITZ/bin/plotData_GPU physics.gen.root plots.physics.gen.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.gen.root\")"
                 $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
-                $DALITZ/bin/plotData_GPU physics.acc.root plots.physics.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc.root\")"
                 mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI_GPU dalitz1.cfg
-                $DALITZ/bin/plotResults_GPU dalitz1.fit dalitz1.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(\"dalitz1.root\")"
+            - name: dalitz2
+              if: success() || failure()
+              run: |
+                cd $DALITZ/run
                 $DALITZ/bin/generatePhysics_GPU dalitz2.cfg physics.gen.root 100000
-                $DALITZ/bin/plotData_GPU physics.gen.root plots.physics.gen.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.gen.root\")"
                 $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
-                $DALITZ/bin/plotData_GPU physics.acc.root plots.physics.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc.root\")"
                 mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI_GPU dalitz2.cfg
-                $DALITZ/bin/plotResults_GPU dalitz2.fit dalitz2.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(\"dalitz2.root\")"
+            - name: dalitz3
+              if: success() || failure()
+              run: |
+                cd $DALITZ/run
                 $DALITZ/bin/generatePhysics_GPU dalitz3.cfg physics.gen.root 100000
-                $DALITZ/bin/plotData_GPU physics.gen.root plots.physics.gen.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.gen.root\")"
                 $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
-                $DALITZ/bin/plotData_GPU physics.acc.root plots.physics.acc.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_all_histograms.C(\"plots.physics.acc.root\")"
                 mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI_GPU dalitz3.cfg
-                $DALITZ/bin/plotResults_GPU dalitz3.fit dalitz3.root
-                root -l -b -q "$AMPTOOLS_HOME/unit_tests/plot_overlayed_histograms.C(\"dalitz3.root\")"
-                mv -f *.png $AMPTOOLS_HOME/unit_tests
