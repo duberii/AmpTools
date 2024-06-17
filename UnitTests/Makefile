@@ -17,7 +17,7 @@ endif
 INC_DIR := -I$(PROJECT_LIB)
 INC_DIR += -I$(AMPTOOLS_HOME)/Tutorials/Dalitz
 LIB_DIR := -L$(PROJECT_HOME)/lib
-LIB_DIR += -L$(AMPTOOLS_HOME)/Tutorials/Dalitz/DalitzLib
+LIB_DIR += -L$(AMPTOOLS_HOME)/Tutorials/Dalitz/lib
 EXTRA_LIBS := -lDalitz
 
 # add extra library linking flags here if they are needed -- be sure the locations
