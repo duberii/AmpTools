@@ -58,7 +58,7 @@ jobs:
               run: |
                 mkdir Tutorials/Dalitz/lib
                 mkdir Tutorials/Dalitz/bin
-                make
+                make mpi
                 export AMPTOOLS_HOME=$(pwd)
                 echo "AMPTOOLS_HOME=$AMPTOOLS_HOME" >> $GITHUB_ENV
                 echo "AMPTOOLS=$AMPTOOLS_HOME/AmpTools" >> $GITHUB_ENV
