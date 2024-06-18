@@ -104,7 +104,7 @@ int main( int argc, char* argv[] ){
       cout << abs(neg2LL_after + 2.07478e+03) << endl;
       //assert(abs(neg2LL_before - 30795.5) <= 0.05);
       //assert(abs(neg2LL_after + 2.07478e+03)<= 1);
-    }
+    }}
 
 
   ATI.exitMPI();
@@ -112,5 +112,4 @@ int main( int argc, char* argv[] ){
 
   return 0;
 
-}
 }
