@@ -14,10 +14,9 @@ PROJECT_LIB := $(PROJECT_HOME)/$(PROJECT)Lib
 endif
 
 # if there are other libraries to include, the include path can be added here
-INC_DIR := -I$(PROJECT_LIB)
-INC_DIR += -I$(AMPTOOLS_HOME)/Tutorials/Dalitz
+INC_DIR := -I$(PROJECT_LIB) -I$(AMPTOOLS_HOME)/Tutorials/Dalitz
 LIB_DIR := -L$(PROJECT_HOME)/lib
-LIB_DIR += -L$(AMPTOOLS_HOME)/Tutorials/Dalitz/lib
+LIB_DIR += -L$(AMPTOOLS_HOME)/Tutorials/DalitzLib
 EXTRA_LIBS := -lDalitz
 
 # add extra library linking flags here if they are needed -- be sure the locations
