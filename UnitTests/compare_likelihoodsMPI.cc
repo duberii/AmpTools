@@ -90,20 +90,14 @@ int main( int argc, char* argv[] ){
     ATI.finalizeFit();
 
     if (cfgname == "dalitz1.cfg") {
-      cout << setprecision (15) << neg2LL_before - 3.079554798903468e+04 << endl;
-      cout << setprecision (15) << neg2LL_after + 2.074778682820483e+03  << endl;
-      //assert(abs(neg2LL_before - 30795.5) <= 0.05);
-      //assert(abs(neg2LL_after + 2.07478e+03)<= 0.005);
+      assert(abs(neg2LL_before - 3.079554798903468e+04) <= 1e-08);
+      assert(abs(neg2LL_after + 2.074778682820483e+03) <= 1e-08);
     } else if (cfgname == "dalitz2.cfg") {
-      cout << setprecision (15) << neg2LL_before - 6.647422142620471e+04 << endl;
-      cout << setprecision (15) << neg2LL_after + 5.548757538372322e+03  << endl;
-      //assert(neg2LL_before == 66474.2);
-      //assert(neg2LL_after == -5.54876e+03);
+      assert(abs(neg2LL_before - 6.647422142620471e+04) <= 1e-08);
+      assert(abs(neg2LL_after + 5.548757538372322e+03) <= 1e-08);
     } else if (cfgname == "dalitz3.cfg") {
-      cout << setprecision (15) << neg2LL_before - 3.079554798903468e+04 << endl;
-      cout << setprecision (15) << neg2LL_after + 2.075484019268935e+03  << endl;
-      //assert(abs(neg2LL_before - 30795.5) <= 0.05);
-      //assert(abs(neg2LL_after + 2.07478e+03)<= 1);
+      assert(abs(neg2LL_before - 3.079554798903468e+04) <= 1e-08);
+      assert(abs(neg2LL_after + 2.075484019268935e+03) <= 1e-08);
     }}
 
 
