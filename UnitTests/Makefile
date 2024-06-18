@@ -1,22 +1,9 @@
 
 ###### BUILDING PROJECT EXECUTABLES
 
-ifndef PROJECT
-PROJECT := Dalitz
-endif
-
-ifndef PROJECT_HOME
-PROJECT_HOME := ..
-endif
-
-ifndef PROJECT_LIB
-PROJECT_LIB := $(PROJECT_HOME)/$(PROJECT)Lib
-endif
-
 # if there are other libraries to include, the include path can be added here
-INC_DIR := -I$(PROJECT_LIB) -I$(AMPTOOLS_HOME)/Tutorials/Dalitz
-LIB_DIR := -L$(PROJECT_HOME)/lib
-LIB_DIR += -L$(AMPTOOLS_HOME)/Tutorials/Dalitz/DalitzLib
+INC_DIR :=  -I$(AMPTOOLS_HOME)/Tutorials/Dalitz/DalitzLib
+LIB_DIR := -L$(AMPTOOLS_HOME)/Tutorials/Dalitz/lib
 EXTRA_LIBS := -lDalitz
 
 # add extra library linking flags here if they are needed -- be sure the locations
@@ -61,7 +48,7 @@ endif
 LIB_DIR += -L$(shell root-config --libdir) $(CUDA_LIBS) \
 	-L$(AMPTOOLS)/lib -L$(AMPPLOTTER)/lib
 
-LIBS :=  -l$(PROJECT)$(SUFFIX) -lAmpPlotter -lAmpTools$(ATSUFFIX) \
+LIBS :=  -lAmpPlotter -lAmpTools$(ATSUFFIX) \
 	$(EXTRA_LIBS) $(shell root-config --glibs) $(CUDA_LINK) -lstdc++
 
 # any source file falls into one of these two categories -- we'll
