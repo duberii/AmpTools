@@ -1,15 +1,5 @@
 
 ###### BUILDING PROJECT EXECUTABLES
-
-# if there are other libraries to include, the include path can be added here
-INC_DIR :=  -I$(AMPTOOLS_HOME)/Tutorials/Dalitz/DalitzLib
-LIB_DIR := -L$(AMPTOOLS_HOME)/Tutorials/Dalitz/lib
-EXTRA_LIBS := -lDalitz
-
-# add extra library linking flags here if they are needed -- be sure the locations
-# are specified in the LIB_DIR arugments above
-#EXTRA_LIBS := -lOtherLibrary
-
 ######  most things below probably don't need adjustment
 
 ifndef AMPTOOLS_HOME
@@ -23,7 +13,7 @@ ifndef INSTALL_BIN
 INSTALL_BIN = .
 endif
 
-INC_DIR += -I$(AMPPLOTTER) -I$(AMPTOOLS) -I$(shell root-config --incdir)
+INC_DIR := -I$(AMPTOOLS_HOME)/Tutorials/Dalitz/DalitzLib -I$(AMPPLOTTER) -I$(AMPTOOLS) -I$(shell root-config --incdir)
 CXX_FLAGS += $(shell root-config --cflags)
 
 # check if GPU build is requested
@@ -45,10 +35,10 @@ ATSUFFIX := $(ATSUFFIX)_MPI
 endif
 
 # need some linking information available
-LIB_DIR += -L$(shell root-config --libdir) $(CUDA_LIBS) \
-	-L$(AMPTOOLS)/lib -L$(AMPPLOTTER)/lib
+LIB_DIR := -L$(shell root-config --libdir) $(CUDA_LIBS) \
+	-L$(AMPTOOLS)/lib -L$(AMPPLOTTER)/lib -L$(AMPTOOLS_HOME)/Tutorials/Dalitz/lib
 
-LIBS :=  -lAmpPlotter -lAmpTools$(ATSUFFIX) \
+LIBS :=  -lAmpPlotter -lAmpTools$(ATSUFFIX) -lDalitz$(SUFFIX)\
 	$(EXTRA_LIBS) $(shell root-config --glibs) $(CUDA_LINK) -lstdc++
 
 # any source file falls into one of these two categories -- we'll
