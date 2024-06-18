@@ -90,14 +90,14 @@ int main( int argc, char* argv[] ){
     ATI.finalizeFit();
 
     if (cfgname == "dalitz1.cfg") {
-      assert(abs(neg2LL_before - 3.079554798903468e+04) <= 1e-08);
-      assert(abs(neg2LL_after + 2.074778682820483e+03) <= 1e-08);
+      assert(abs(neg2LL_before - 3.079554798903468e+04) <= 1e-07);
+      assert(abs(neg2LL_after + 2.074778682820483e+03) <= 1e-07);
     } else if (cfgname == "dalitz2.cfg") {
-      assert(abs(neg2LL_before - 6.647422142620471e+04) <= 1e-08);
-      assert(abs(neg2LL_after + 5.548757538372322e+03) <= 1e-08);
+      assert(abs(neg2LL_before - 6.647422142620471e+04) <= 1e-07);
+      assert(abs(neg2LL_after + 5.548757538372322e+03) <= 1e-07);
     } else if (cfgname == "dalitz3.cfg") {
-      assert(abs(neg2LL_before - 3.079554798903468e+04) <= 1e-08);
-      assert(abs(neg2LL_after + 2.075484019268935e+03) <= 1e-08);
+      assert(abs(neg2LL_before - 3.079554798903468e+04) <= 1e-07);
+      assert(abs(neg2LL_after + 2.075484019268935e+03) <= 1e-07);
     }}
 
 

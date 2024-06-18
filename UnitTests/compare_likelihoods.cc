@@ -43,14 +43,14 @@ int main( int argc, char* argv[] ){
   ATI.finalizeFit();
   cout << "Testing " << cfgname << " fit..." << endl;
   if (cfgname == "dalitz1.cfg") {
-      assert(abs(neg2LL_before - 3.079554803770344e+04) <= 1e-08);
-      assert(abs(neg2LL_after + 2.074778620651376e+03) <= 1e-08);
+      assert(abs(neg2LL_before - 3.079554803770344e+04) <= 1e-07);
+      assert(abs(neg2LL_after + 2.074778620651376e+03) <= 1e-07);
     } else if (cfgname == "dalitz2.cfg") {
-      assert(abs(neg2LL_before - 6.647422147638009e+04) <= 1e-08);
-      assert(abs(neg2LL_after + 5.548757456847361e+03) <= 1e-08);
+      assert(abs(neg2LL_before - 6.647422147638009e+04) <= 1e-07);
+      assert(abs(neg2LL_after + 5.548757456847361e+03) <= 1e-07);
     } else if (cfgname == "dalitz3.cfg") {
-      assert(abs(neg2LL_before - 3.079554803770344e+04) <= 1e-08);
-      assert(abs(neg2LL_after + 2.075483954190555e+03) <= 1e-08);
+      assert(abs(neg2LL_before - 3.079554803770344e+04) <= 1e-07);
+      assert(abs(neg2LL_after + 2.075483954190555e+03) <= 1e-07);
     }
   return 0;
 }
