@@ -90,18 +90,18 @@ int main( int argc, char* argv[] ){
     ATI.finalizeFit();
 
     if (cfgname == "dalitz1.cfg") {
-      cout << abs(neg2LL_before - 30795.5) << endl;
-      cout << abs(neg2LL_after + 2.07478e+03) << endl;
+      cout << abs(neg2LL_before - 30795.5479890) << endl;
+      cout << abs(neg2LL_after + 2.07478131718e+03) << endl;
       //assert(abs(neg2LL_before - 30795.5) <= 0.05);
       //assert(abs(neg2LL_after + 2.07478e+03)<= 0.005);
     } else if (cfgname == "dalitz2.cfg") {
-      cout << abs(neg2LL_before - 66474.2) << endl;
-      cout << abs(neg2LL_after + 5.54876e+03) << endl;
+      cout << abs(neg2LL_before - 66474.2214262) << endl;
+      cout << abs(neg2LL_after + 5.54876246163e+03) << endl;
       //assert(neg2LL_before == 66474.2);
       //assert(neg2LL_after == -5.54876e+03);
     } else if (cfgname == "dalitz3.cfg") {
       cout << abs(neg2LL_before - 30795.5) << endl;
-      cout << abs(neg2LL_after + 2.07478e+03) << endl;
+      cout << abs(neg2LL_after + 2.07548e+03) << endl;
       //assert(abs(neg2LL_before - 30795.5) <= 0.05);
       //assert(abs(neg2LL_after + 2.07478e+03)<= 1);
     }}

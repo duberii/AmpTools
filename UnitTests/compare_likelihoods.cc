@@ -54,7 +54,7 @@ int main( int argc, char* argv[] ){
       //assert(neg2LL_after == -5.54876e+03);
     } else if (cfgname == "dalitz3.cfg") {
       cout << abs(neg2LL_before - 30795.5480377) << endl;
-      cout << abs(neg2LL_after + 2.07548e+03) << endl;
+      cout << abs(neg2LL_after + 2.07548395418e+03) << endl;
       //assert(abs(neg2LL_before - 30795.5) <= 0.05);
       //assert(abs(neg2LL_after + 2.07478e+03)<= 1);
     }
