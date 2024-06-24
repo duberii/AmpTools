@@ -41,14 +41,14 @@ jobs:
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
                 $DALITZ/bin/fitAmplitudes dalitz2.cfg
                 $UNIT_TESTS/compare_likelihoods dalitz2.cfg
-            - name: dalitz3
+            - name: parserTest
               if: success() || failure()
               run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhysics dalitz3.cfg physics.gen.root 100000
+                cd $UNIT_TESTS
+                $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
-                $DALITZ/bin/fitAmplitudes dalitz3.cfg
-                $UNIT_TESTS/compare_likelihoods dalitz3.cfg
+                $DALITZ/bin/fitAmplitudes parserTest.cfg
+
     Unit-Test-MPI:
         runs-on: self-hosted
         steps:
