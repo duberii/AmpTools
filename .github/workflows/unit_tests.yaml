@@ -53,7 +53,9 @@ jobs:
                 ./parserTest
             - name: ConfigurationInfo
               if: success() || failure()
-              run: ./configurationInfoTest
+              run: |
+                cd $UNIT_TESTS
+                ./configurationInfoTest
 
     Unit-Test-MPI:
         runs-on: self-hosted
@@ -112,7 +114,9 @@ jobs:
                 ./parserTestMPI
             - name: ConfigurationInfo
               if: success() || failure()
-              run: ./configurationInfoTestMPI
+              run: |
+                cd $UNIT_TESTS
+                ./configurationInfoTestMPI
     Unit-Test-GPU:
         runs-on: self-hosted
         steps:
@@ -231,4 +235,6 @@ jobs:
                 ./parserTestMPI_GPU
             - name: ConfigurationInfo
               if: success() || failure()
-              run: ./configurationInfoTestMPI_GPU
+              run: |
+                cd $UNIT_TESTS
+                ./configurationInfoTestMPI_GPU
