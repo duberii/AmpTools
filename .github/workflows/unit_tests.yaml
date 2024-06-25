@@ -50,6 +50,10 @@ jobs:
                 $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
                 $DALITZ/bin/fitAmplitudes parserTest.cfg
+                ./parserTest
+            - name: ConfigurationInfo test
+              if: success() || failure()
+              run: ./configurationInfoTest
 
     Unit-Test-MPI:
         runs-on: self-hosted
@@ -96,6 +100,19 @@ jobs:
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
                 mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI dalitz3.cfg
                 mpirun -n 3 $UNIT_TESTS/compare_likelihoodsMPI dalitz3.cfg
+            - name: parserTest
+              if: success() || failure()
+              run: |
+                cd $UNIT_TESTS
+                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000
+                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root
+                $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000
+                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
+                $DALITZ/bin/fitAmplitudes parserTest.cfg
+                ./parserTest
+            - name: ConfigurationInfo test
+              if: success() || failure()
+              run: ./configurationInfoTest
     Unit-Test-GPU:
         runs-on: self-hosted
         steps:
@@ -141,6 +158,20 @@ jobs:
                 $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
                 $DALITZ/bin/fitAmplitudes_GPU dalitz3.cfg
                 $UNIT_TESTS/compare_likelihoods_GPU dalitz3.cfg
+            - name: parserTest
+              if: success() || failure()
+              run: |
+                cd $UNIT_TESTS
+                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000
+                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root
+                $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000
+                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
+                $DALITZ/bin/fitAmplitudes parserTest.cfg
+                ls
+                ./parserTest
+            - name: ConfigurationInfo test
+              if: success() || failure()
+              run: ./configurationInfoTest
     Unit-Test-MPI-GPU:
         runs-on: self-hosted
         steps:
@@ -186,3 +217,16 @@ jobs:
                 $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
                 mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI_GPU dalitz3.cfg
                 mpirun -n 3 $UNIT_TESTS/compare_likelihoodsMPI_GPU dalitz3.cfg
+            - name: parserTest
+              if: success() || failure()
+              run: |
+                cd $UNIT_TESTS
+                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000
+                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root
+                $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000
+                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
+                $DALITZ/bin/fitAmplitudes parserTest.cfg
+                ./parserTest
+            - name: ConfigurationInfo test
+              if: success() || failure()
+              run: ./configurationInfoTest
