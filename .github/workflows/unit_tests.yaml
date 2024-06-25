@@ -50,11 +50,10 @@ jobs:
                 $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
                 $DALITZ/bin/fitAmplitudes parserTest.cfg
-                ls
-                parserTest
+                . parserTest
             - name: ConfigurationInfo
               if: success() || failure()
-              run: configurationInfoTest
+              run: . configurationInfoTest
 
     Unit-Test-MPI:
         runs-on: self-hosted
@@ -110,10 +109,11 @@ jobs:
                 $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
                 $DALITZ/bin/fitAmplitudes parserTest.cfg
-                parserTest
+                ls
+                . parserTest
             - name: ConfigurationInfo
               if: success() || failure()
-              run: configurationInfoTest
+              run: . configurationInfoTest
     Unit-Test-GPU:
         runs-on: self-hosted
         steps:
