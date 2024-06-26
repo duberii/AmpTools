@@ -12,16 +12,15 @@
 #include "DalitzAmp/BreitWigner.h"
 #include "DalitzAmp/Constraint.h"
 
-int main( int argc, char* argv[] ) {
-    if (argc <= 1){
-        cout << "Usage:" << endl << endl;
-        cout << "\tparserTest <config file name>" << endl << endl;
-        return 0;
-    }
+int main() {
     ofstream fout;
-    string cfgname(argv[1]);
+    string cfgname("parserTest.cfg");
     ConfigFileParser parser(cfgname);
     ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
+    AmpToolsInterface::registerAmplitude(BreitWigner());
+    AmpToolsInterface::registerNeg2LnLikContrib(Constraint());
+    AmpToolsInterface::registerDataReader(DalitzDataReader());
+    AmpToolsInterface ATI(cfgInfo);
 
 
     //ConfigFileParser
@@ -55,6 +54,27 @@ int main( int argc, char* argv[] ) {
     fout << pinfo.size() << "\n"; 
 
     fout.close();
+
+    //AmpToolsInterface
+    fout.open("models/AmpToolsInterface.txt");
+    double neg2LL_before = ATI.likelihood();
+    fout << setprecision(15) << neg2LL_before << "\n";
+
+    MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
+    fitManager->setStrategy(1);
+
+    fitManager->migradMinimization();
+
+
+    double neg2LL_after = ATI.likelihood();
+    fout << setprecision(15) << neg2LL_after << "\n";
+    fout << setprecision(15) << ATI.likelihood("base") << "\n";
+    fout << setprecision(15) << ATI.likelihood("constrained") << "\n";
+    fout << setprecision(15) << ATI.likelihood("symmetrized_implicit") << "\n";
+    fout << setprecision(15) << ATI.likelihood("symmetrized_explicit") << "\n";
+    ATI.finalizeFit();
+    fout.close();
+    
     
     return 0;
 }

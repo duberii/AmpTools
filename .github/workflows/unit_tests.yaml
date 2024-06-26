@@ -56,6 +56,11 @@ jobs:
               run: |
                 cd $UNIT_TESTS
                 ./configurationInfoTest
+            - name: AmpToolsInterface
+              if: success() || failure()
+              run: |
+                cd $UNIT_TESTS
+                ./AmpToolsInterfaceTest
 
     Unit-Test-MPI:
         runs-on: self-hosted
@@ -117,6 +122,12 @@ jobs:
               run: |
                 cd $UNIT_TESTS
                 ./configurationInfoTest
+            - name: AmpToolsInterface
+              if: success() || failure()
+              run: |
+                cd $UNIT_TESTS
+                ./AmpToolsInterfaceTestMPI
+
     Unit-Test-GPU:
         runs-on: self-hosted
         steps:
@@ -177,7 +188,12 @@ jobs:
               run: |
                 cd $UNIT_TESTS
                 ./configurationInfoTest_GPU
-          
+            - name: AmpToolsInterface
+              if: success() || failure()
+              run: |
+                cd $UNIT_TESTS
+                ./AmpToolsInterfaceTest_GPU
+
     Unit-Test-MPI-GPU:
         runs-on: self-hosted
         steps:
@@ -238,3 +254,8 @@ jobs:
               run: |
                 cd $UNIT_TESTS
                 ./configurationInfoTest_GPU
+            - name: AmpToolsInterface
+              if: success() || failure()
+              run: |
+                cd $UNIT_TESTS
+                ./AmpToolsInterfaceTestMPI_GPU
