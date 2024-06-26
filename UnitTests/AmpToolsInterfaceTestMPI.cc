@@ -50,9 +50,9 @@ class unitTest {
     }
 };
 
-int main() {
+int main( int argc, char* argv[] ) {
     bool result;
-    MPI_Init();
+    MPI_Init( &argc, &argv );
     int rank;
     int size;
     MPI_Comm_rank( MPI_COMM_WORLD, &rank );
