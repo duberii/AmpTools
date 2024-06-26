@@ -126,7 +126,7 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                ./AmpToolsInterfaceTestMPI
+                mpirun -n 3 ./AmpToolsInterfaceTestMPI
 
     Unit-Test-GPU:
         runs-on: self-hosted
@@ -258,4 +258,4 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                ./AmpToolsInterfaceTestMPI_GPU
+                mpirun -n 3 ./AmpToolsInterfaceTestMPI_GPU
