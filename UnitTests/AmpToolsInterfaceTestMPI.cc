@@ -62,7 +62,6 @@ int main( int argc, char* argv[] ) {
     } else {
         ATIFile += ".txt";
     }
-    cout << ATIFile << endl;
     bool result;
     MPI_Init( &argc, &argv );
     int rank;

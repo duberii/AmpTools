@@ -73,7 +73,6 @@ int main( int argc, char* argv[] ) {
     
     unitTest unit_test;
     ifstream fin;
-    cout << ATIFile << endl;
     fin.open(ATIFile);
 
     double neg2LL_before;
