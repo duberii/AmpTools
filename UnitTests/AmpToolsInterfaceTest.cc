@@ -48,7 +48,18 @@ class unitTest {
     }
 };
 
-int main() {
+int main( int argc, char* argv[] ) {
+    string AmpToolsVersion(argv[1]);
+    string ATIFile = "models/AmpToolsInterface";
+    if (AmpToolsVersion == "mpi") {
+        ATIFile += "MPI.txt";
+    } else if (AmpToolsVersion == "gpu") {
+        ATIFile += "GPU.txt";
+    } else if (AmpToolsVersion == "mpigpu") {
+        ATIFile += "MPIGPU.txt";
+    } else {
+        ATIFile += ".txt";
+    }
     string cfgname = "parserTest.cfg";
     ConfigFileParser parser(cfgname);
     ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
@@ -62,7 +73,7 @@ int main() {
     
     unitTest unit_test;
     ifstream fin;
-    fin.open("models/AmpToolsInterface.txt");
+    fin.open(ATIFile);
 
     double neg2LL_before;
     fin >> neg2LL_before;

@@ -12,7 +12,8 @@
 #include "DalitzAmp/BreitWigner.h"
 #include "DalitzAmp/Constraint.h"
 
-int main() {
+int main( int argc, char* argv[] ) {
+    string AmpToolsVersion(argv[1]);
     ofstream fout;
     string cfgname("parserTest.cfg");
     ConfigFileParser parser(cfgname);
@@ -56,7 +57,17 @@ int main() {
     fout.close();
 
     //AmpToolsInterface
-    fout.open("models/AmpToolsInterface.txt");
+    string ATIFile = "models/AmpToolsInterface";
+    if (AmpToolsVersion == "mpi") {
+        ATIFile += "MPI.txt";
+    } else if (AmpToolsVersion == "gpu") {
+        ATIFile += "GPU.txt";
+    } else if (AmpToolsVersion == "mpigpu") {
+        ATIFile += "MPIGPU.txt";
+    } else {
+        ATIFile += ".txt";
+    }
+    fout.open(ATIFile);
     double neg2LL_before = ATI.likelihood();
     fout << setprecision(15) << neg2LL_before << "\n";
 

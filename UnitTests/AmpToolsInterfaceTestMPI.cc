@@ -51,6 +51,17 @@ class unitTest {
 };
 
 int main( int argc, char* argv[] ) {
+    string AmpToolsVersion(argv[1]);
+    string ATIFile = "models/AmpToolsInterface";
+    if (AmpToolsVersion == "mpi") {
+        ATIFile += "MPI.txt";
+    } else if (AmpToolsVersion == "gpu") {
+        ATIFile += "GPU.txt";
+    } else if (AmpToolsVersion == "mpigpu") {
+        ATIFile += "MPIGPU.txt";
+    } else {
+        ATIFile += ".txt";
+    }
     bool result;
     MPI_Init( &argc, &argv );
     int rank;
@@ -71,7 +82,7 @@ int main( int argc, char* argv[] ) {
     
     unitTest unit_test;
     ifstream fin;
-    fin.open("models/AmpToolsInterface.txt");
+    fin.open(ATIFile);
 
     double neg2LL_before;
     fin >> neg2LL_before;
