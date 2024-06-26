@@ -66,7 +66,7 @@ int main() {
     AmpToolsInterfaceMPI ATI(cfgInfo);
     if (rank == 0){
     cout << "________________________________________" << endl;
-    cout << "Testing " << target_name << ":" << endl;
+    cout << "Testing AmpToolsInterface from ConfigurationInfo:" << endl;
     cout << "________________________________________" << endl;
     
     unitTest unit_test;
