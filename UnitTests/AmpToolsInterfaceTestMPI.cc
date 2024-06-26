@@ -75,7 +75,7 @@ int main( int argc, char* argv[] ) {
 
     double neg2LL_before;
     fin >> neg2LL_before;
-    cout << ATI.likelihood()-neg2LL_after << endl;
+    cout << ATI.likelihood()-neg2LL_before << endl;
     unit_test.add(abs(ATI.likelihood()-neg2LL_before)<= 1e-11, "Likelihood before fit matches model");
 
     MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
