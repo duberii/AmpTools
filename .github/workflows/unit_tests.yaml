@@ -61,6 +61,7 @@ jobs:
               run: |
                 cd $UNIT_TESTS
                 ./writeModels base
+                cat models/AmpToolsInterface.txt
                 ./AmpToolsInterfaceTest base
 
     Unit-Test-MPI:
