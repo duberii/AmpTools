@@ -20,7 +20,6 @@ int main( int argc, char* argv[] ) {
     if (argc <= 1){
     report( INFO, kModule ) << "Usage:" << endl << endl;
     report( INFO, kModule ) << "\twriteModels <base/mpi/gpu/mpigpu>" << endl << endl;
-    MPI_Finalize();
     return 0;
     }
     string AmpToolsVersion(argv[1]);
