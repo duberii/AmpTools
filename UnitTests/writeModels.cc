@@ -13,6 +13,12 @@
 #include "DalitzAmp/Constraint.h"
 
 int main( int argc, char* argv[] ) {
+    if (argc <= 1){
+    report( INFO, kModule ) << "Usage:" << endl << endl;
+    report( INFO, kModule ) << "\twiteModels <base/mpi/gpu/mpigpu>" << endl << endl;
+    MPI_Finalize();
+    return 0;
+    }
     string AmpToolsVersion(argv[1]);
     ofstream fout;
     string cfgname("parserTest.cfg");
@@ -85,7 +91,6 @@ int main( int argc, char* argv[] ) {
     fout << setprecision(15) << ATI.likelihood("symmetrized_explicit") << "\n";
     ATI.finalizeFit();
     fout.close();
-    
     
     return 0;
 }
