@@ -9,6 +9,7 @@
 #include "IUAmpTools/ConfigurationInfo.h"
 #include "IUAmpTools/AmpToolsInterface.h"
 #include "DalitzDataIO/DalitzDataReader.h"
+#include "IUAmpTools/FitResults.h"
 #include "DalitzAmp/BreitWigner.h"
 #include "DalitzAmp/Constraint.h"
 
@@ -94,6 +95,36 @@ int main( int argc, char* argv[] ) {
     fout << ATI.likelihood("symmetrized_explicit") << "\n";
     ATI.finalizeFit();
     fout.close();
+
+    //fitResults
+
+    const FitResults* fitResults = ATI.fitResults();
+    fout.open("models/fitResults.txt");
+    pair<double, double> intensity = fitResults->intensity();
+    fout << intensity.first << "\n";
+    fout << intensity.second << "\n";
+    pair<double, double> pd = fitResults->phaseDiff("base::s1::R12","base::s1::R13");
+    fout << pd.first << "\n";
+    fout << pd.second << "\n";
+    complex<double> ppBase = fitResults->productionParameter("base::s1::R12");
+    fout << ppBase.real() << "\n";
+    fout << ppBase.imag() << "\n";
+    complex<double> ppConstrained = fitResults->productionParameter("constrained::s2::RC12");
+    fout << ppConstrained.real() << "\n";
+    fout << ppConstrained.imag() << "\n";
+    complex<double> ppSymm = fitResults->productionParameter("symmetrized_explicit::s4::RSE12");
+    fout << ppSymm.real() << "\n";
+    fout << ppSymm.imag() << "\n";
+    double bestMinimum = fitResults->bestMinimum();
+    fout << bestMinimum << "\n";
+    vector<string> parNames = fitResults->parNameList();
+    fout << parNames.size() << "\n";
+    vector<double> parVals = fitResults->parValueList();
+    for (const double i : parVals) {
+        fout << i << "\n";
+    }
+    fout.close();
+
     
     return 0;
 }
