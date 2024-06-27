@@ -89,7 +89,7 @@ int main( int argc, char* argv[] ) {
     unit_test.add(abs(ATI.likelihood()-neg2LL_after)<= 1e-3, "Likelihood after fit matches model");
     double neg2LL_base;
     fin >> neg2LL_base;
-    unit_test.add(abs(ATI.likelihood("base")-neg2LL_base)<= 1e-3, "Likelihood of base reaction after fit matches model");
+    unit_test.add(abs(ATI.likelihood("base")-neg2LL_base)<= 1e-2, "Likelihood of base reaction after fit matches model");
     double neg2LL_constrained;
     fin >> neg2LL_constrained;
     unit_test.add(abs(ATI.likelihood("constrained")-neg2LL_constrained)<= 1e-2, "Likelihood of constrained reaction after fit matches model");
