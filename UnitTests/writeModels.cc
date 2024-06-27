@@ -12,10 +12,14 @@
 #include "DalitzAmp/BreitWigner.h"
 #include "DalitzAmp/Constraint.h"
 
+#include "IUAmpTools/report.h"
+static const char* kModule = "writeModels";
+using namespace std;
+
 int main( int argc, char* argv[] ) {
     if (argc <= 1){
     report( INFO, kModule ) << "Usage:" << endl << endl;
-    report( INFO, kModule ) << "\twiteModels <base/mpi/gpu/mpigpu>" << endl << endl;
+    report( INFO, kModule ) << "\twriteModels <base/mpi/gpu/mpigpu>" << endl << endl;
     MPI_Finalize();
     return 0;
     }
