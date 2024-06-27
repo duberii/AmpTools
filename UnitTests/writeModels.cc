@@ -78,7 +78,7 @@ int main( int argc, char* argv[] ) {
     }
     fout.open(ATIFile);
     double neg2LL_before = ATI.likelihood();
-    fout << setprecision(15) << neg2LL_before << "\n";
+    fout << neg2LL_before << "\n";
 
     MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
     fitManager->setStrategy(1);
@@ -87,11 +87,11 @@ int main( int argc, char* argv[] ) {
 
 
     double neg2LL_after = ATI.likelihood();
-    fout << setprecision(15) << neg2LL_after << "\n";
-    fout << setprecision(15) << ATI.likelihood("base") << "\n";
-    fout << setprecision(15) << ATI.likelihood("constrained") << "\n";
-    fout << setprecision(15) << ATI.likelihood("symmetrized_implicit") << "\n";
-    fout << setprecision(15) << ATI.likelihood("symmetrized_explicit") << "\n";
+    fout << neg2LL_after << "\n";
+    fout << ATI.likelihood("base") << "\n";
+    fout << ATI.likelihood("constrained") << "\n";
+    fout << ATI.likelihood("symmetrized_implicit") << "\n";
+    fout << ATI.likelihood("symmetrized_explicit") << "\n";
     ATI.finalizeFit();
     fout.close();
     

@@ -77,7 +77,7 @@ int main( int argc, char* argv[] ) {
 
     double neg2LL_before;
     fin >> neg2LL_before;
-    cout << abs((ATI.likelihood()-neg2LL_before)/neg2LL_before) << endl;
+    cout << ATI.likelihood() << endl;
     unit_test.add(abs((ATI.likelihood()-neg2LL_before)/neg2LL_before)<= 1e-11, "Likelihood before fit matches model");
 
     MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
@@ -87,23 +87,23 @@ int main( int argc, char* argv[] ) {
 
     double neg2LL_after;
     fin >> neg2LL_after;
-    cout << abs((ATI.likelihood()-neg2LL_after)/neg2LL_after) << endl;
+    cout << ATI.likelihood() << endl;
     unit_test.add(abs((ATI.likelihood()-neg2LL_after)/neg2LL_after)<= 1e-11, "Likelihood after fit matches model");
     double neg2LL_base;
     fin >> neg2LL_base;
-    cout << abs((ATI.likelihood("base")-neg2LL_base)/neg2LL_base) << endl;
+    cout << ATI.likelihood("base") << endl;
     unit_test.add(abs((ATI.likelihood("base")-neg2LL_base)/neg2LL_base)<= 1e-11, "Likelihood of base reaction after fit matches model");
     double neg2LL_constrained;
     fin >> neg2LL_constrained;
-    cout << abs((ATI.likelihood("constrained")-neg2LL_constrained)/neg2LL_constrained) << endl;
+    cout << ATI.likelihood("constrained") << endl;
     unit_test.add(abs((ATI.likelihood("constrained")-neg2LL_constrained)/neg2LL_constrained)<= 1e-11, "Likelihood of constrained reaction after fit matches model");
     double neg2LL_symmetrized_implicit;
     fin >> neg2LL_symmetrized_implicit;
-    cout << abs((ATI.likelihood("symmetrized_implicit")-neg2LL_symmetrized_implicit)/neg2LL_symmetrized_implicit) << endl;
+    cout << ATI.likelihood("symmetrized_implicit") << endl;
     unit_test.add(abs((ATI.likelihood("symmetrized_implicit")-neg2LL_symmetrized_implicit)/neg2LL_symmetrized_implicit)<= 1e-11, "Likelihood of symmetrized (implicit) reaction after fit matches model");
     double neg2LL_symmetrized_explicit;
     fin >> neg2LL_symmetrized_explicit;
-    cout << abs((ATI.likelihood("symmetrized_explicit")-neg2LL_symmetrized_explicit)/neg2LL_symmetrized_explicit) << endl;
+    cout << ATI.likelihood("symmetrized_explicit") << endl;
     unit_test.add(abs((ATI.likelihood("symmetrized_explicit")-neg2LL_symmetrized_explicit)/neg2LL_symmetrized_explicit)<= 1e-11, "Likelihood of symmetrized (explicit) reaction after fit matches model");
     bool result = unit_test.summary();
     if (!result) {
