@@ -60,6 +60,7 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
+                ./writeModels
                 ./AmpToolsInterfaceTest base
 
     Unit-Test-MPI:
