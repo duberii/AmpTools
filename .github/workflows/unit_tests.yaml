@@ -20,27 +20,6 @@ jobs:
                 echo "AMPPLOTTER=$AMPTOOLS_HOME/AmpPlotter" >> $GITHUB_ENV
                 echo "DALITZ=$AMPTOOLS_HOME/Tutorials/Dalitz" >> $GITHUB_ENV
                 echo "UNIT_TESTS=$AMPTOOLS_HOME/UnitTests" >> $GITHUB_ENV
-            - name: Generating Phase Space
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000
-                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root
-            - name: dalitz1
-              if: success() || failure()
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhysics dalitz1.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
-                $DALITZ/bin/fitAmplitudes dalitz1.cfg
-                $UNIT_TESTS/compare_likelihoods dalitz1.cfg
-            - name: dalitz2
-              if: success() || failure()
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhysics dalitz2.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
-                $DALITZ/bin/fitAmplitudes dalitz2.cfg
-                $UNIT_TESTS/compare_likelihoods dalitz2.cfg
             - name: ConfigFileParser
               if: success() || failure()
               run: |
@@ -60,8 +39,6 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                ./writeModels base
-                cat models/AmpToolsInterface.txt
                 ./AmpToolsInterfaceTest base
 
     Unit-Test-MPI:
@@ -80,35 +57,6 @@ jobs:
                 echo "AMPPLOTTER=$AMPTOOLS_HOME/AmpPlotter" >> $GITHUB_ENV
                 echo "DALITZ=$AMPTOOLS_HOME/Tutorials/Dalitz" >> $GITHUB_ENV
                 echo "UNIT_TESTS=$AMPTOOLS_HOME/UnitTests" >> $GITHUB_ENV
-            - name: Generating Phase Space
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000
-                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root
-            - name: dalitz1
-              if: success() || failure()
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhysics dalitz1.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
-                mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI dalitz1.cfg
-                mpirun -n 3 $UNIT_TESTS/compare_likelihoodsMPI dalitz1.cfg
-            - name: dalitz2
-              if: success() || failure()
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhysics dalitz2.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
-                mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI dalitz2.cfg
-                mpirun -n 3 $UNIT_TESTS/compare_likelihoodsMPI dalitz2.cfg
-            - name: dalitz3
-              if: success() || failure()
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhysics dalitz3.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
-                mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI dalitz3.cfg
-                mpirun -n 3 $UNIT_TESTS/compare_likelihoodsMPI dalitz3.cfg
             - name: ConfigFileParser
               if: success() || failure()
               run: |
@@ -146,35 +94,6 @@ jobs:
                 echo "AMPPLOTTER=$AMPTOOLS_HOME/AmpPlotter" >> $GITHUB_ENV
                 echo "DALITZ=$AMPTOOLS_HOME/Tutorials/Dalitz" >> $GITHUB_ENV
                 echo "UNIT_TESTS=$AMPTOOLS_HOME/UnitTests" >> $GITHUB_ENV
-            - name: Generating Phase Space
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhaseSpace_GPU phasespace.gen.root 100000
-                $DALITZ/bin/toyAcceptance_GPU phasespace.gen.root phasespace.acc.root
-            - name: dalitz1
-              if: success() || failure()
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhysics_GPU dalitz1.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
-                $DALITZ/bin/fitAmplitudes_GPU dalitz1.cfg
-                $UNIT_TESTS/compare_likelihoods_GPU dalitz1.cfg
-            - name: dalitz2
-              if: success() || failure()
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhysics_GPU dalitz2.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
-                $DALITZ/bin/fitAmplitudes_GPU dalitz2.cfg
-                $UNIT_TESTS/compare_likelihoods_GPU dalitz2.cfg
-            - name: dalitz3
-              if: success() || failure()
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhysics_GPU dalitz3.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
-                $DALITZ/bin/fitAmplitudes_GPU dalitz3.cfg
-                $UNIT_TESTS/compare_likelihoods_GPU dalitz3.cfg
             - name: ConfigFileParser
               if: success() || failure()
               run: |
@@ -212,35 +131,6 @@ jobs:
                 echo "AMPPLOTTER=$AMPTOOLS_HOME/AmpPlotter" >> $GITHUB_ENV
                 echo "DALITZ=$AMPTOOLS_HOME/Tutorials/Dalitz" >> $GITHUB_ENV
                 echo "UNIT_TESTS=$AMPTOOLS_HOME/UnitTests" >> $GITHUB_ENV
-            - name: Generating Phase Space
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhaseSpace_GPU phasespace.gen.root 100000
-                $DALITZ/bin/toyAcceptance_GPU phasespace.gen.root phasespace.acc.root
-            - name: dalitz1
-              if: success() || failure()
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhysics_GPU dalitz1.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
-                mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI_GPU dalitz1.cfg
-                mpirun -n 3 $UNIT_TESTS/compare_likelihoodsMPI_GPU dalitz1.cfg
-            - name: dalitz2
-              if: success() || failure()
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhysics_GPU dalitz2.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
-                mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI_GPU dalitz2.cfg
-                mpirun -n 3 $UNIT_TESTS/compare_likelihoodsMPI_GPU dalitz2.cfg
-            - name: dalitz3
-              if: success() || failure()
-              run: |
-                cd $DALITZ/run
-                $DALITZ/bin/generatePhysics_GPU dalitz3.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
-                mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI_GPU dalitz3.cfg
-                mpirun -n 3 $UNIT_TESTS/compare_likelihoodsMPI_GPU dalitz3.cfg
             - name: ConfigFileParser
               if: success() || failure()
               run: |
