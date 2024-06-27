@@ -109,11 +109,11 @@ int main( int argc, char* argv[] ) {
     fin >> neg2LL_symmetrized_explicit;
     unit_test.add(abs(ATI.likelihood("symmetrized_explicit")-neg2LL_symmetrized_explicit)<= 1e-3, "Likelihood of symmetrized (explicit) reaction after fit matches model");
     result = unit_test.summary();
-    }
-    ATI.exitMPI();
-    MPI_Finalize();
     if (!result) {
         throw runtime_error("Unit Tests Failed. See previous logs for more information.");
     }
+    }
+    ATI.exitMPI();
+    MPI_Finalize();
     return 0;
 }
