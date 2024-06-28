@@ -84,27 +84,27 @@ bool testFitResults(const FitResults* fitResults) {
     fin >> ppSymm_imag;
     fin >> bestMinimum;
     fin >> num_parameters;
-    cout << abs(intensity_first-fitResults->intensity().first) << endl;
-    cout << abs(intensity_second-fitResults->intensity().second) << endl;
-    cout << abs(pd_first-fitResults->phaseDiff("base::s1::R12","base::s1::R13").first) << endl;
-    cout << abs(pd_second-fitResults->phaseDiff("base::s1::R12","base::s1::R13").second) << endl;
-    cout << abs(ppBase_real-fitResults->productionParameter("base::s1::R12").real()) << endl;
-    cout << abs(ppBase_imag-fitResults->productionParameter("base::s1::R12").imag()) << endl;
-    cout << abs(ppConstrained_real-fitResults->productionParameter("constrained::s2::RC12").real()) << endl;
-    cout << abs(ppConstrained_imag-fitResults->productionParameter("constrained::s2::RC12").imag()) << endl;
-    cout << abs(ppSymm_real-fitResults->productionParameter("symmetrized_explicit::s4::RSE12").real()) << endl;
-    cout << abs(ppSymm_imag-fitResults->productionParameter("symmetrized_explicit::s4::RSE12").imag()) << endl;
-    cout << abs(bestMinimum-fitResults->bestMinimum()) << endl;
-    int sz = fitResults->parNameList().size();
-    cout << abs(num_parameters-sz);
+    unit_test.add(abs(intensity_first-fitResults->intensity().first)<= 1e-01, "Intensity matches model");
+    unit_test.add(abs(intensity_second-fitResults->intensity().second)<= 1e-04, "Intensity error matches model");
+    unit_test.add(abs(pd_first-fitResults->phaseDiff("base::s1::R12","base::s1::R13").first)<= 1e-04, "Phase difference between amplitudes matches model");
+    unit_test.add(abs(pd_second-fitResults->phaseDiff("base::s1::R12","base::s1::R13").second)<= 1e-04, "Phase difference error between amplitudes matches model");
+    unit_test.add(abs(ppBase_real-fitResults->productionParameter("base::s1::R12").real())<= 1e-04, "Real part of base reaction production parameter matches model");
+    unit_test.add(abs(ppBase_imag-fitResults->productionParameter("base::s1::R12").imag())<= 1e-04, "Imaginary part of base reaction production parameter matches model");
+    unit_test.add(abs(ppConstrained_real-fitResults->productionParameter("constrained::s2::RC12").real())<= 1e-04, "Real part of constrained reaction production parameter matches model");
+    unit_test.add(abs(ppConstrained_imag-fitResults->productionParameter("constrained::s2::RC12").imag())<= 1e-04, "Imaginary part of constrained reaction production parameter matches model");
+    unit_test.add(abs(ppSymm_real-fitResults->productionParameter("symmetrized_explicit::s4::RSE12").real())<= 1e-04, "Real part of symmetrized reaction production parameter matches model");
+    unit_test.add(abs(ppSymm_imag-fitResults->productionParameter("symmetrized_explicit::s4::RSE12").imag())<= 1e-04, "Imaginary part of symmetrized reaction production parameter matches model");
+    unit_test.add(abs(bestMinimum-fitResults->bestMinimum())<=1e-3,"Best minimum matches model");
+    vector<string> parNames = fitResults->parNameList();
+    int sz = parNames.size();
+    unit_test.add(abs(num_parameters-sz)==0, "Number of parameter names matches model");
     vector<double> parVals = fitResults->parValueList();
-    for (const double parVal : parVals) {
-        double j;
-        fin >> j;
-        cout << abs(j-parVal) << endl;    
+    for (int i = 0; i< sz; i++) {
+        double parValModel;
+        fin >> parValModel;
+        unit_test.add(abs(parValModel-parVals[i])<=1e-04, parNames[i] + " value matches model value");    
     }
-
-    return true;
+    return unit_test.summary();
 }
 
 int main( int argc, char* argv[] ) {
@@ -121,6 +121,7 @@ int main( int argc, char* argv[] ) {
     AmpToolsInterfaceMPI::registerDataReader(DataReaderMPI<DalitzDataReader>());
     AmpToolsInterfaceMPI ATI(cfgInfo);
     if (rank==0) {
+        vector<bool> results;
     cout << "________________________________________" << endl;
     cout << "Testing FitResults from AmpToolsInterface:" << endl;
     cout << "________________________________________" << endl;
@@ -132,7 +133,19 @@ int main( int argc, char* argv[] ) {
     fitManager->migradMinimization();
     ATI.finalizeFit();
     const FitResults* fitResults = ATI.fitResults();
-    testFitResults(fitResults);
+    results.push_back(testFitResults(fitResults));
+
+    cout << "________________________________________" << endl;
+    cout << "Testing FitResults from file:" << endl;
+    cout << "________________________________________" << endl;
+
+    const FitResults* fitResults_from_file("fitTest.fit");
+    results.push_back(testFitResults(fitResults_from_file));
+    for (const bool result : results) {
+    if (!result) {
+        throw runtime_error("Unit Tests Failed. See previous logs for more information.");
+    }
+  }
     }
 
     ATI.exitMPI();
