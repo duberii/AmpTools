@@ -149,7 +149,7 @@ int main( int argc, char* argv[] ) {
     ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
     AmpToolsInterfaceMPI::registerAmplitude(BreitWigner());
     AmpToolsInterfaceMPI::registerNeg2LnLikContrib(Constraint());
-    AmpToolsInterfaceMPI::registerDataReader(DalitzDataReader());
+    AmpToolsInterfaceMPI::registerDataReader(DataReaderMPI<DalitzDataReader>());
     AmpToolsInterfaceMPI ATI(cfgInfo);
     if (rank==0) {
     cout << "________________________________________" << endl;
