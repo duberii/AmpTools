@@ -91,9 +91,9 @@ bool testFitResults(const FitResults* fitResults) {
     int sz = fitResults->parNameList().size();
     cout << abs(num_parameters-sz);
     vector<double> parVals = fitResults->parValueList();
-    for (const double i : parVals) {
-        fout << i << "\n";
-    }
+    //for (const double i : parVals) {
+        
+    //}
 
 
     cout << fitResults->intensity().first << endl;
