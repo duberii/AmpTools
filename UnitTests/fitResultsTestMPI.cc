@@ -139,8 +139,9 @@ int main( int argc, char* argv[] ) {
     cout << "Testing FitResults from file:" << endl;
     cout << "________________________________________" << endl;
 
-    const FitResults* fitResults_from_file("fitTest.fit");
-    results.push_back(testFitResults(fitResults_from_file));
+    FitResults fitResults_from_file("fitTest.fit");
+    const FitResults* fr_ff = &fitResults_from_file;
+    results.push_back(testFitResults(fr_ff));
     for (const bool result : results) {
     if (!result) {
         throw runtime_error("Unit Tests Failed. See previous logs for more information.");
