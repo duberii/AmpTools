@@ -39,7 +39,7 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                ./AmpToolsInterfaceTest base
+                ./AmpToolsInterfaceTest
             - name: FitResults
               if: success() || failure()
               run: |
@@ -81,7 +81,7 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                mpirun -n 3 ./AmpToolsInterfaceTestMPI mpi
+                mpirun -n 3 ./AmpToolsInterfaceTestMPI
             - name: FitResults
               if: success() || failure()
               run: |
@@ -123,7 +123,7 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                ./AmpToolsInterfaceTest_GPU gpu
+                ./AmpToolsInterfaceTest_GPU
             - name: FitResults
               if: success() || failure()
               run: |
@@ -165,7 +165,7 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                mpirun -n 3 ./AmpToolsInterfaceTestMPI_GPU mpigpu
+                mpirun -n 3 ./AmpToolsInterfaceTestMPI_GPU
             - name: FitResults
               if: success() || failure()
               run: |
