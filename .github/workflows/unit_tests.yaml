@@ -44,7 +44,7 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                ./fitResultsTest
+                ./fitResultsTest base
 
     Unit-Test-MPI:
         runs-on: self-hosted
@@ -86,7 +86,7 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                ./fitResultsTest
+                ./fitResultsTestMPI mpi
 
     Unit-Test-GPU:
         runs-on: self-hosted
@@ -128,7 +128,7 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                ./fitResultsTest_GPU
+                ./fitResultsTest_GPU gpu
 
     Unit-Test-MPI-GPU:
         runs-on: self-hosted
@@ -170,4 +170,4 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                ./fitResultsTest_GPU
+                ./fitResultsTestMPI_GPU mpigpu

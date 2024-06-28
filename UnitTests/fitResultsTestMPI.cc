@@ -5,16 +5,19 @@
 #include <vector>
 #include <utility>
 #include <map>
+#include <mpi.h>
 #include "IUAmpTools/ConfigFileParser.h"
 #include "IUAmpTools/ConfigurationInfo.h"
-#include "IUAmpTools/AmpToolsInterface.h"
+#include "IUAmpToolsMPI/AmpToolsInterfaceMPI.h"
+#include "IUAmpToolsMPI/DataReaderMPI.h"
 #include "IUAmpTools/FitResults.h"
 #include "DalitzDataIO/DalitzDataReader.h"
 #include "DalitzAmp/BreitWigner.h"
 #include "DalitzAmp/Constraint.h"
 #include "IUAmpTools/report.h"
 
-static const char* kModule = "fitResultsTest";
+
+static const char* kModule = "fitResultsTestMPI";
 
 using namespace std;
 
@@ -130,6 +133,11 @@ bool testFitResults(const FitResults* fitResults, string AmpToolsVersion) {
 }
 
 int main( int argc, char* argv[] ) {
+    MPI_Init( &argc, &argv );
+    int rank;
+    int size;
+    MPI_Comm_rank( MPI_COMM_WORLD, &rank );
+    MPI_Comm_size( MPI_COMM_WORLD, &size );
     if (argc <= 1){
     report( INFO, kModule ) << "Usage:" << endl << endl;
     report( INFO, kModule ) << "\tfitResultsTest <base/mpi/gpu/mpigpu>" << endl << endl;
@@ -139,10 +147,11 @@ int main( int argc, char* argv[] ) {
     string cfgname = "parserTest.cfg";
     ConfigFileParser parser(cfgname);
     ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
-    AmpToolsInterface::registerAmplitude(BreitWigner());
-    AmpToolsInterface::registerNeg2LnLikContrib(Constraint());
-    AmpToolsInterface::registerDataReader(DalitzDataReader());
-    AmpToolsInterface ATI(cfgInfo);
+    AmpToolsInterfaceMPI::registerAmplitude(BreitWigner());
+    AmpToolsInterfaceMPI::registerNeg2LnLikContrib(Constraint());
+    AmpToolsInterfaceMPI::registerDataReader(DalitzDataReader());
+    AmpToolsInterfaceMPI ATI(cfgInfo);
+    if (rank==0) {
     cout << "________________________________________" << endl;
     cout << "Testing FitResults from AmpToolsInterface:" << endl;
     cout << "________________________________________" << endl;
@@ -155,6 +164,10 @@ int main( int argc, char* argv[] ) {
     ATI.finalizeFit();
     const FitResults* fitResults = ATI.fitResults();
     testFitResults(fitResults, AmpToolsVersion);
+    }
+
+    ATI.exitMPI();
+    MPI_Finalize();
 
     return 0;
 }
