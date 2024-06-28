@@ -90,6 +90,29 @@ bool testFitResults(const FitResults* fitResults) {
     cout << abs(bestMinimum-fitResults->bestMinimum()) << endl;
     int sz = fitResults->parNameList().size();
     cout << abs(num_parameters-sz);
+    vector<double> parVals = fitResults->parValueList();
+    for (const double i : parVals) {
+        fout << i << "\n";
+    }
+
+
+    cout << fitResults->intensity().first << endl;
+    cout << fitResults->intensity().second << endl;
+    cout << fitResults->phaseDiff("base::s1::R12","base::s1::R13").first << endl;
+    cout << fitResults->phaseDiff("base::s1::R12","base::s1::R13").second << endl;
+    cout << fitResults->productionParameter("base::s1::R12").real() << endl;
+    cout << fitResults->productionParameter("base::s1::R12").imag() << endl;
+    cout << fitResults->productionParameter("constrained::s2::RC12").real() << endl;
+    cout << fitResults->productionParameter("constrained::s2::RC12").imag() << endl;
+    cout << fitResults->productionParameter("symmetrized_explicit::s4::RSE12").real() << endl;
+    cout << fitResults->productionParameter("symmetrized_explicit::s4::RSE12").imag() << endl;
+    cout << itResults->bestMinimum() << endl;
+    int sz = fitResults->parNameList().size();
+    cout << num_parameters << endl;
+    vector<double> parVals = fitResults->parValueList();
+    for (const double i : parVals) {
+        cout << i << endl;
+    }
     return true;
 }
 
