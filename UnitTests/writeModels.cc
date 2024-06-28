@@ -17,13 +17,7 @@
 static const char* kModule = "writeModels";
 using namespace std;
 
-int main( int argc, char* argv[] ) {
-    if (argc <= 1){
-    report( INFO, kModule ) << "Usage:" << endl << endl;
-    report( INFO, kModule ) << "\twriteModels <base/mpi/gpu/mpigpu>" << endl << endl;
-    return 0;
-    }
-    string AmpToolsVersion(argv[1]);
+int main() {
     ofstream fout;
     string cfgname("parserTest.cfg");
     ConfigFileParser parser(cfgname);
@@ -67,16 +61,7 @@ int main( int argc, char* argv[] ) {
     fout.close();
 
     //AmpToolsInterface
-    string ATIFile = "models/AmpToolsInterface";
-    if (AmpToolsVersion == "mpi") {
-        ATIFile += "MPI.txt";
-    } else if (AmpToolsVersion == "gpu") {
-        ATIFile += "GPU.txt";
-    } else if (AmpToolsVersion == "mpigpu") {
-        ATIFile += "MPIGPU.txt";
-    } else {
-        ATIFile += ".txt";
-    }
+    string ATIFile = "models/AmpToolsInterface.txt";
     fout.open(ATIFile);
     double neg2LL_before = ATI.likelihood();
     fout << neg2LL_before << "\n";

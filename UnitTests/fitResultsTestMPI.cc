@@ -55,17 +55,8 @@ class unitTest {
     }
 };
 
-bool testFitResults(const FitResults* fitResults, string AmpToolsVersion) {
-    string fitResultsFile = "models/fitResults";
-    if (AmpToolsVersion == "mpi") {
-        fitResultsFile += "MPI.txt";
-    } else if (AmpToolsVersion == "gpu") {
-        fitResultsFile += "GPU.txt";
-    } else if (AmpToolsVersion == "mpigpu") {
-        fitResultsFile += "MPIGPU.txt";
-    } else {
-        fitResultsFile += ".txt";
-    }
+bool testFitResults(const FitResults* fitResults) {
+    string fitResultsFile = "models/fitResults.txt";
     unitTest unit_test;
     ifstream fin;
     fin.open(fitResultsFile);
@@ -138,12 +129,6 @@ int main( int argc, char* argv[] ) {
     int size;
     MPI_Comm_rank( MPI_COMM_WORLD, &rank );
     MPI_Comm_size( MPI_COMM_WORLD, &size );
-    if (argc <= 1){
-    report( INFO, kModule ) << "Usage:" << endl << endl;
-    report( INFO, kModule ) << "\tfitResultsTest <base/mpi/gpu/mpigpu>" << endl << endl;
-    return 0;
-    }
-    string AmpToolsVersion(argv[1]);
     string cfgname = "parserTest.cfg";
     ConfigFileParser parser(cfgname);
     ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
@@ -163,7 +148,7 @@ int main( int argc, char* argv[] ) {
     fitManager->migradMinimization();
     ATI.finalizeFit();
     const FitResults* fitResults = ATI.fitResults();
-    testFitResults(fitResults, AmpToolsVersion);
+    testFitResults(fitResults);
     }
 
     ATI.exitMPI();
