@@ -107,9 +107,7 @@ bool testFitResults(const FitResults* fitResults) {
     cout << fitResults->productionParameter("symmetrized_explicit::s4::RSE12").real() << endl;
     cout << fitResults->productionParameter("symmetrized_explicit::s4::RSE12").imag() << endl;
     cout << fitResults->bestMinimum() << endl;
-    int sz = fitResults->parNameList().size();
-    cout << num_parameters << endl;
-    vector<double> parVals = fitResults->parValueList();
+    cout << sz << endl;
     for (const double i : parVals) {
         cout << i << endl;
     }
