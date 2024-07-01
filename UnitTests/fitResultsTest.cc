@@ -112,12 +112,29 @@ bool testFitResults(const FitResults* fitResults) {
     cout << abs(ppSymm_real-fitResults->productionParameter("symmetrized_explicit::s4::RSE12").real()) << endl;
     cout << abs(ppSymm_imag-fitResults->productionParameter("symmetrized_explicit::s4::RSE12").imag()) << endl;
     cout << abs(bestMinimum-fitResults->bestMinimum()) << endl;
-    cout << abs(num_parameters-sz);
+    cout << abs(num_parameters-sz) << endl;
     for (const double parVal : parVals) {
         double j;
         fin >> j;
         cout << abs(j-parVal) << endl;    
     }
+
+    cout << fitResults->intensity().first << endl;
+    cout << fitResults->intensity().second << endl;
+    cout << fitResults->phaseDiff("base::s1::R12","base::s1::R13").first << endl;
+    cout << fitResults->phaseDiff("base::s1::R12","base::s1::R13").second << endl;
+    cout << fitResults->productionParameter("base::s1::R12").real() << endl;
+    cout << fitResults->productionParameter("base::s1::R12").imag() << endl;
+    cout << fitResults->productionParameter("constrained::s2::RC12").real() << endl;
+    cout << fitResults->productionParameter("constrained::s2::RC12").imag() << endl;
+    cout << fitResults->productionParameter("symmetrized_explicit::s4::RSE12").real() << endl;
+    cout << fitResults->productionParameter("symmetrized_explicit::s4::RSE12").imag() << endl;
+    cout << fitResults->bestMinimum() << endl;
+    cout << sab(num_parameters-sz);
+    for (const double parVal : parVals) {
+        cout << parVal << endl;    
+    }
+
     return unit_test.summary();
 }
 
