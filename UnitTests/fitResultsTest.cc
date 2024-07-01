@@ -130,7 +130,7 @@ bool testFitResults(const FitResults* fitResults) {
     cout << fitResults->productionParameter("symmetrized_explicit::s4::RSE12").real() << endl;
     cout << fitResults->productionParameter("symmetrized_explicit::s4::RSE12").imag() << endl;
     cout << fitResults->bestMinimum() << endl;
-    cout << sab(num_parameters-sz);
+    cout << sz;
     for (const double parVal : parVals) {
         cout << parVal << endl;    
     }
