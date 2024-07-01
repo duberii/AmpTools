@@ -94,7 +94,7 @@ bool testFitResults(const FitResults* fitResults) {
     unit_test.add(abs(bestMinimum-fitResults->bestMinimum())<=1e-3,"Best minimum matches model");
     vector<string> parNames = fitResults->parNameList();
     int sz = parNames.size();
-    unit_test.add(abs(num_parameters-sz)<= 1e-10, "Number of parameter names matches model");
+    unit_test.add(abs(num_parameters-sz)==0, "Number of parameter names matches model");
     vector<double> parVals = fitResults->parValueList();
     for (int i = 0; i< sz; i++) {
         double parValModel;
