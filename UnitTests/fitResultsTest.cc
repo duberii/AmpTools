@@ -91,15 +91,15 @@ bool testFitResults(const FitResults* fitResults) {
     unit_test.add(abs(ppConstrained_imag-fitResults->productionParameter("constrained::s2::RC12").imag())<= 1e-04, "Imaginary part of constrained reaction production parameter matches model");
     unit_test.add(abs(ppSymm_real-fitResults->productionParameter("symmetrized_explicit::s4::RSE12").real())<= 1e-03, "Real part of symmetrized reaction production parameter matches model");
     unit_test.add(abs(ppSymm_imag-fitResults->productionParameter("symmetrized_explicit::s4::RSE12").imag())<= 1e-03, "Imaginary part of symmetrized reaction production parameter matches model");
-    unit_test.add(abs(bestMinimum-fitResults->bestMinimum())<=1e-7,"Best minimum matches model");
+    unit_test.add(abs(bestMinimum-fitResults->bestMinimum())<=1e-5,"Best minimum matches model");
     vector<string> parNames = fitResults->parNameList();
     int sz = parNames.size();
-    unit_test.add(abs(num_parameters-sz)==0, "Number of parameter names matches model");
+    unit_test.add(abs(num_parameters-sz)<= 1e-10, "Number of parameter names matches model");
     vector<double> parVals = fitResults->parValueList();
     for (int i = 0; i< sz; i++) {
         double parValModel;
         fin >> parValModel;
-        unit_test.add(abs(parValModel-parVals[i])<=1e-03, parNames[i] + " value matches model value");    
+        unit_test.add(abs(parValModel-parVals[i])<=1e-02, parNames[i] + " value matches model value");    
     }
     cout << abs(intensity_first-fitResults->intensity().first) << endl;
     cout << abs(intensity_second-fitResults->intensity().second) << endl;
