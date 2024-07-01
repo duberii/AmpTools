@@ -109,7 +109,5 @@ int main() {
         fout << i << "\n";
     }
     fout.close();
-
-    
     return 0;
 }
