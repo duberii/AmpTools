@@ -104,23 +104,6 @@ bool testFitResults(const FitResults* fitResults) {
         fin >> parValModel;
         unit_test.add(abs(parValModel-parVals[i])<=1e-03, parNames[i] + " value matches model value");    
     }
-    cout << abs(intensity_first-fitResults->intensity().first) << endl;
-    cout << abs(intensity_second-fitResults->intensity().second) << endl;
-    cout << abs(pd_first-fitResults->phaseDiff("base::s1::R12","base::s1::R13").first) << endl;
-    cout << abs(pd_second-fitResults->phaseDiff("base::s1::R12","base::s1::R13").second) << endl;
-    cout << abs(ppBase_real-fitResults->productionParameter("base::s1::R12").real()) << endl;
-    cout << abs(ppBase_imag-fitResults->productionParameter("base::s1::R12").imag()) << endl;
-    cout << abs(ppConstrained_real-fitResults->productionParameter("constrained::s2::RC12").real()) << endl;
-    cout << abs(ppConstrained_imag-fitResults->productionParameter("constrained::s2::RC12").imag()) << endl;
-    cout << abs(ppSymm_real-fitResults->productionParameter("symmetrized_explicit::s4::RSE12").real()) << endl;
-    cout << abs(ppSymm_imag-fitResults->productionParameter("symmetrized_explicit::s4::RSE12").imag()) << endl;
-    cout << abs(bestMinimum-fitResults->bestMinimum()) << endl;
-    cout << abs(num_parameters-sz);
-    for (const double parVal : parVals) {
-        double j;
-        fin >> j;
-        cout << abs(j-parVal) << endl;    
-    }
 
     cout << fitResults->intensity().first << endl;
     cout << fitResults->intensity().second << endl;
