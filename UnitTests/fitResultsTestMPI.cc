@@ -102,23 +102,10 @@ bool testFitResults(const FitResults* fitResults) {
     for (int i = 0; i< sz; i++) {
         double parValModel;
         fin >> parValModel;
+        cout << parValModel << endl;
+        cout << parVals[i] << endl;
+        cout << "________________" << endl;
         unit_test.add(abs(parValModel-parVals[i])<=1e-02, parNames[i] + " value matches model value");    
-    }
-
-    cout << fitResults->intensity().first << endl;
-    cout << fitResults->intensity().second << endl;
-    cout << fitResults->phaseDiff("base::s1::R12","base::s1::R13").first << endl;
-    cout << fitResults->phaseDiff("base::s1::R12","base::s1::R13").second << endl;
-    cout << fitResults->productionParameter("base::s1::R12").real() << endl;
-    cout << fitResults->productionParameter("base::s1::R12").imag() << endl;
-    cout << fitResults->productionParameter("constrained::s2::RC12").real() << endl;
-    cout << fitResults->productionParameter("constrained::s2::RC12").imag() << endl;
-    cout << fitResults->productionParameter("symmetrized_explicit::s4::RSE12").real() << endl;
-    cout << fitResults->productionParameter("symmetrized_explicit::s4::RSE12").imag() << endl;
-    cout << fitResults->bestMinimum() << endl;
-    cout << sz << endl;
-    for (const double parVal : parVals) {
-        cout << parVal << endl;    
     }
 
     return unit_test.summary();
