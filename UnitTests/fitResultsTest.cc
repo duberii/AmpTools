@@ -130,6 +130,8 @@ bool testFitResults(const FitResults* fitResults) {
     cout << bestMinimum << endl;
     cout << "__________________" << endl;
     cout << sz << endl;
+    cout << num_parameters << endl;
+    cout << "__________________" << endl;
     for (int i = 0; i< sz; i++) {
         double parValModel;
         fin >> parValModel;
