@@ -20,15 +20,16 @@ using namespace std;
 int main()
 {
     ofstream fout;
+    AmpToolsInterface::registerAmplitude(BreitWigner());
+    AmpToolsInterface::registerNeg2LnLikContrib(Constraint());
+    AmpToolsInterface::registerDataReader(DalitzDataReader());
     for (int i = 0; i < 1000; i++) {
 
         string distFile = "models/distFile.csv";
         string cfgname("parserTest.cfg");
         ConfigFileParser parser(cfgname);
         ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
-        AmpToolsInterface::registerAmplitude(BreitWigner());
-        AmpToolsInterface::registerNeg2LnLikContrib(Constraint());
-        AmpToolsInterface::registerDataReader(DalitzDataReader());
+        
         AmpToolsInterface ATI(cfgInfo);
 
         // AmpToolsInterface
@@ -49,7 +50,6 @@ int main()
         fout << ATI.likelihood("symmetrized_implicit") << ",";
         fout << ATI.likelihood("symmetrized_explicit") << ",";
         ATI.finalizeFit();
-        fout.close();
 
         // fitResults
 
