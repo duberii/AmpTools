@@ -18,9 +18,12 @@
 static const char* kModule = "distributionsMPI";
 using namespace std;
 
-int main()
+int main( int argc, char* argv[] )
 {
     ofstream fout;
+    AmpToolsInterfaceMPI::registerAmplitude(BreitWigner());
+    AmpToolsInterfaceMPI::registerNeg2LnLikContrib(Constraint());
+    AmpToolsInterfaceMPI::registerDataReader(DataReaderMPI<DalitzDataReader>());
     for (int i = 0; i < 1000; i++) {
         bool result;
         MPI_Init( &argc, &argv );
@@ -32,9 +35,6 @@ int main()
         string cfgname("parserTest.cfg");
         ConfigFileParser parser(cfgname);
         ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
-        AmpToolsInterfaceMPI::registerAmplitude(BreitWigner());
-        AmpToolsInterfaceMPI::registerNeg2LnLikContrib(Constraint());
-        AmpToolsInterfaceMPI::registerDataReader(DataReaderMPI<DalitzDataReader>());
         AmpToolsInterfaceMPI ATI(cfgInfo);
 
         // AmpToolsInterface
@@ -55,7 +55,6 @@ int main()
         fout << ATI.likelihood("symmetrized_implicit") << ",";
         fout << ATI.likelihood("symmetrized_explicit") << ",";
         ATI.finalizeFit();
-        fout.close();
 
         // fitResults
 
