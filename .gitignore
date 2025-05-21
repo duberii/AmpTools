@@ -31,3 +31,4 @@ Tutorials/Dalitz/doc/*.log
 Tutorials/Dalitz/doc/*.toc
 Tutorials/Dalitz/doc/*.synctex.gz
 
+/.vscode
