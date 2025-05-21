@@ -19,9 +19,9 @@ using namespace std;
 
 int main()
 {
+    ofstream fout;
     for (int i = 0; i < 1000; i++) {
 
-        ofstream fout;
         string distFile = "models/distFile.csv";
         string cfgname("parserTest.cfg");
         ConfigFileParser parser(cfgname);
