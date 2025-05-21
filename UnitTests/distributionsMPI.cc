@@ -20,6 +20,7 @@ using namespace std;
 
 int main()
 {
+    ofstream fout;
     for (int i = 0; i < 1000; i++) {
         bool result;
         MPI_Init( &argc, &argv );
@@ -27,7 +28,6 @@ int main()
         int size;
         MPI_Comm_rank( MPI_COMM_WORLD, &rank );
         MPI_Comm_size( MPI_COMM_WORLD, &size );
-        ofstream fout;
         string distFile = "models/distFile.csv";
         string cfgname("parserTest.cfg");
         ConfigFileParser parser(cfgname);
