@@ -77,6 +77,7 @@ int main()
         for (const double i : parVals) {
             fout << i << ",";
         }
+        ATI.clearEvents();
         fout << "\n";
     }
     fout.close();
