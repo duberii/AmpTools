@@ -1,9 +1,9 @@
-name: Unit Tests
-run-name: Unit tests for changes made by @${{ github.actor }}
+name: Generating Distributions
+run-name: Generating Distributions for changes made by @${{ github.actor }}
 on: [push]
 
 jobs:
-    Unit-Test-Base:
+    Base:
         runs-on: self-hosted
         steps:
             - name: Checkout
@@ -42,7 +42,7 @@ jobs:
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
 
-    Unit-Test-MPI:
+    MPI:
         runs-on: self-hosted
         steps:
             - name: Checkout
@@ -83,7 +83,7 @@ jobs:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
 
 
-    Unit-Test-GPU:
+    GPU:
         runs-on: self-hosted
         steps:
             - name: Checkout
@@ -123,7 +123,7 @@ jobs:
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
 
-    Unit-Test-MPI-GPU:
+    MPI-GPU:
         runs-on: self-hosted
         steps:
             - name: Checkout
