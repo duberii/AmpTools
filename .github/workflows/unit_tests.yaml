@@ -22,10 +22,10 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000
-                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root
-                $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
+                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000 12345
+                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root 12345
+                $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000 12345
+                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root 12345
                 $DALITZ/bin/fitAmplitudes parserTest.cfg
                 ./parserTest
             - name: ConfigurationInfo
@@ -64,10 +64,10 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000
-                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root
-                $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
+                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000 12345
+                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root 12345
+                $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000 12345
+                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root 12345
                 $DALITZ/bin/fitAmplitudes parserTest.cfg
                 ./parserTest
             - name: ConfigurationInfo
@@ -106,10 +106,10 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                $DALITZ/bin/generatePhaseSpace_GPU phasespace.gen.root 100000
-                $DALITZ/bin/toyAcceptance_GPU phasespace.gen.root phasespace.acc.root
-                $DALITZ/bin/generatePhysics_GPU parserTest.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
+                $DALITZ/bin/generatePhaseSpace_GPU phasespace.gen.root 100000 12345
+                $DALITZ/bin/toyAcceptance_GPU phasespace.gen.root phasespace.acc.root 12345
+                $DALITZ/bin/generatePhysics_GPU parserTest.cfg physics.gen.root 100000 12345
+                $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root 12345
                 $DALITZ/bin/fitAmplitudes_GPU parserTest.cfg
                 ./parserTest_GPU
             - name: ConfigurationInfo
@@ -148,10 +148,10 @@ jobs:
               if: success() || failure()
               run: |
                 cd $UNIT_TESTS
-                $DALITZ/bin/generatePhaseSpace_GPU phasespace.gen.root 100000
-                $DALITZ/bin/toyAcceptance_GPU phasespace.gen.root phasespace.acc.root
-                $DALITZ/bin/generatePhysics_GPU parserTest.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root
+                $DALITZ/bin/generatePhaseSpace_GPU phasespace.gen.root 100000 12345
+                $DALITZ/bin/toyAcceptance_GPU phasespace.gen.root phasespace.acc.root 12345
+                $DALITZ/bin/generatePhysics_GPU parserTest.cfg physics.gen.root 100000 12345
+                $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root 12345
                 mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI_GPU parserTest.cfg
                 ./parserTest_GPU
             - name: ConfigurationInfo
