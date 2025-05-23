@@ -23,10 +23,10 @@ jobs:
             - name: Generating files
               run: |
                 cd $UNIT_TESTS
-                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000
-                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root
-                $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000
-                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root
+                $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000 12345
+                $DALITZ/bin/toyAcceptance phasespace.gen.root phasespace.acc.root 12345
+                $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000 12345
+                $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root 12345
                 $DALITZ/bin/fitAmplitudes parserTest.cfg
             - name: Writing Models
               run: |
