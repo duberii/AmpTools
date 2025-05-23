@@ -35,7 +35,7 @@ jobs:
                   mkdir -p "models"
                 fi
                 ./writeModels
-            - name: Committing changes
+            - name: Commit
               run: |
                 git config --local user.email "action@github.com"	                
                 git config --local user.name "github-actions"
@@ -49,7 +49,7 @@ jobs:
                   echo "push_required=true" >> $GITHUB_OUTPUT
                 fi
             - name: Push changes
-              if: steps.commit.outputs.push_required == 'true'
+              if: steps.Commit.outputs.push_required == 'true'
               uses: ad-m/github-push-action@master
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
