@@ -36,6 +36,7 @@ jobs:
                 fi
                 ./writeModels
             - name: Commit Changes
+              id: commit_changes 
               run: |
                 git config --local user.email "action@github.com"	                
                 git config --local user.name "github-actions"
