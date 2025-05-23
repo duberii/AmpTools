@@ -43,6 +43,9 @@ class unitTest {
         assert(passed || failedTests.size() > 0);
         if (passed) {
             cout << "All unit tests passed." << endl;
+            for (const string& passedTest : passedTests) {
+                cout << "* " << passedTest << endl;
+            }
         } else {
             cout << "The following unit tests failed:" << endl;
             for (const string& failedTest : failedTests) {

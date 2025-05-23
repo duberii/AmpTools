@@ -20,12 +20,11 @@ static const char* kModule = "fitResultsTest";
 using namespace std;
 
 class unitTest {
-public:
+    public:
     bool passed = true;
     vector<string> failedTests;
     vector<string> passedTests;
-    void add(bool expr, string name)
-    {
+    void add(bool expr, string name) {
         passed = passed && expr;
         if (expr) {
             passedTests.push_back(name);
@@ -33,31 +32,32 @@ public:
             failedTests.push_back(name);
         }
     }
-    void add(double valModel, double val, double tolerance, string name)
-    {
-        bool expr = abs(valModel - val) <= tolerance;
+    void add(double valModel, double val, double tolerance, string name) {
+        bool expr = abs(valModel-val)<= tolerance;
         passed = passed && expr;
         if (expr) {
-            passedTests.push_back(name + "(diff=" + to_string(abs(valModel - val)) + ")");
+            passedTests.push_back(name + "(diff="+to_string(abs(valModel-val)) +")");
         } else {
-            failedTests.push_back(name + "(diff=" + to_string(abs(valModel - val)) + ")");
+            failedTests.push_back(name + "(diff="+to_string(abs(valModel-val)) +")");
         }
     }
-    bool summary()
-    {
+    bool summary() {
         assert(passed || failedTests.size() > 0);
         if (passed) {
             cout << "All unit tests passed." << endl;
+            for (const string& passedTest : passedTests) {
+                cout << "* " << passedTest << endl;
+            }
         } else {
             cout << "The following unit tests failed:" << endl;
             for (const string& failedTest : failedTests) {
                 cout << "* " << failedTest << endl;
             }
             if (passedTests.size() > 0) {
-                cout << "The following unit tests were successful:" << endl;
-                for (const string& passedTest : passedTests) {
-                    cout << "* " << passedTest << endl;
-                }
+            cout << "The following unit tests were successful:" << endl;
+            for (const string& passedTest : passedTests) {
+                cout << "* " << passedTest << endl;
+            }
             }
         }
         return passed;
