@@ -31,6 +31,9 @@ jobs:
             - name: Writing Models
               run: |
                 cd $UNIT_TESTS
+                if [ ! -d "foldername" ]; then
+                  mkdir -p "foldername"
+                fi
                 ./writeModels
             - name: Committing changes
               run: |
