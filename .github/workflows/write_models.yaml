@@ -37,9 +37,16 @@ jobs:
                 git config --local user.email "action@github.com"	                
                 git config --local user.name "github-actions"
                 cd $UNIT_TESTS
-                git add models
-                git commit -m "Updated models" 
+                git add models/
+                if git diff --cached --quiet; then
+                  echo "No changes to commit."
+                  echo "push_required=false" >> $GITHUB_OUTPUT
+                else
+                  git commit -m "Updated models"
+                  echo "push_required=true" >> $GITHUB_OUTPUT
+                fi
             - name: Push changes
+              if: steps.commit.outputs.push_required == 'true'
               uses: ad-m/github-push-action@master
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
