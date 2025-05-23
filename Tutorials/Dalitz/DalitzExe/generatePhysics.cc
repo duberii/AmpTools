@@ -35,7 +35,7 @@ int main(int argc, char** argv){
     return 0;
   }
   if (argc == 4) {
-    int seed(argv[4]);
+    int seed = stoi(argv[4]);
     srand48(seed);
   }
 
