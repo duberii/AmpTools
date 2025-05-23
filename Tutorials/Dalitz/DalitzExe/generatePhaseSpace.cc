@@ -29,7 +29,8 @@ int main(int argc, char** argv){
     return 0;
   }
   if (argc == 3) {
-    srand48(argv[3]);
+    int seed(argv[3]);
+    srand48(seed);
   }
 
   cout << endl << " *** Generate Phase Space *** " << endl << endl;

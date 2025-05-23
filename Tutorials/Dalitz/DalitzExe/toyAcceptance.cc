@@ -25,7 +25,8 @@ int main(int argc, char** argv){
     return 0;
   }
   if (argc == 3) {
-    srand48(argv[3]);
+    int seed(argv[3]);
+    srand48(seed);
   }
 
   report( INFO, kModule ) << endl << " *** Simulating Detector Effects *** " << endl << endl;

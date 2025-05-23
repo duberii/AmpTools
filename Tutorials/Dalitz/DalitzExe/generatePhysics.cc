@@ -35,7 +35,8 @@ int main(int argc, char** argv){
     return 0;
   }
   if (argc == 4) {
-    srand48(argv[4]);
+    int seed(argv[4]);
+    srand48(seed);
   }
 
   report( INFO, kModule ) << endl << " *** Generating Events According to Amplitudes *** " << endl << endl;
