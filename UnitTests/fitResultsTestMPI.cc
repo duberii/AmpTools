@@ -86,10 +86,6 @@ bool testFitResults(const FitResults* fitResults) {
     fin >> num_parameters;
     unit_test.add(abs(intensity_first-fitResults->intensity().first)<= 1, "Intensity matches model");
     unit_test.add(abs(intensity_second-fitResults->intensity().second)<= 1e1, "Intensity error matches model");
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << to_string(intensity_second) << endl;
-    cout << to_string(fitResults->intensity().second) << endl;
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     unit_test.add(abs(pd_first-fitResults->phaseDiff("base::s1::R12","base::s1::R13").first)<= 1e-03, "Phase difference between amplitudes matches model");
     unit_test.add(abs(pd_second-fitResults->phaseDiff("base::s1::R12","base::s1::R13").second)<= 1, "Phase difference error between amplitudes matches model");
     unit_test.add(abs(ppBase_real-fitResults->productionParameter("base::s1::R12").real())<= 1e-03, "Real part of base reaction production parameter matches model");
