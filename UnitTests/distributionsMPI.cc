@@ -22,6 +22,8 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     ofstream fout;
+    ofstream null_stream("/dev/null");
+    streambuf* old_buf = cout.rdbuf(null_stream.rdbuf());
     AmpToolsInterfaceMPI::registerAmplitude(BreitWigner());
     AmpToolsInterfaceMPI::registerNeg2LnLikContrib(Constraint());
     AmpToolsInterfaceMPI::registerDataReader(DataReaderMPI<DalitzDataReader>());
@@ -38,6 +40,7 @@ int main(int argc, char* argv[])
 
     fout.open(distFile);
     for (int i = 0; i < 1000; i++) {
+        cout.rdbuf(null_stream.rdbuf());
         bool result;
 
         ATI.reinitializePars();
@@ -87,6 +90,8 @@ int main(int argc, char* argv[])
             fout << i << ",";
         }
         fout << "\n";
+        cout.rdbuf(old_buf);
+        cout << to_string(i) << " iterations done." << endl;
     }
     fout.close();
     ATI.exitMPI();

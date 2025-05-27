@@ -20,6 +20,8 @@ using namespace std;
 int main()
 {
     ofstream fout;
+    ofstream null_stream("/dev/null");
+    streambuf* old_buf = cout.rdbuf(null_stream.rdbuf());
     AmpToolsInterface::registerAmplitude(BreitWigner());
     AmpToolsInterface::registerNeg2LnLikContrib(Constraint());
     AmpToolsInterface::registerDataReader(DalitzDataReader());
@@ -31,11 +33,12 @@ int main()
     ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
     AmpToolsInterface ATI(cfgInfo);
     for (int i = 0; i < 1000; i++) {
+        cout.rdbuf(null_stream.rdbuf());
 
         ATI.reinitializePars();
 
         // AmpToolsInterface
-        
+
         double neg2LL_before = ATI.likelihood();
         fout << neg2LL_before << ",";
 
@@ -79,6 +82,8 @@ int main()
             fout << i << ",";
         }
         fout << "\n";
+        cout.rdbuf(old_buf);
+        cout << to_string(i) << " iterations done." << endl;
     }
     fout.close();
     return 0;
