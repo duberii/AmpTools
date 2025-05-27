@@ -24,7 +24,7 @@ int main(int argc, char** argv){
     report( NOTICE, kModule ) << "\ttoyAcceptance <input file name> <output file name> <seed>" << endl << endl;
     return 0;
   }
-  if (argc == 3) {
+  if (argc == 4) {
     int seed = stoi(argv[3]);
     srand48(seed);
   }

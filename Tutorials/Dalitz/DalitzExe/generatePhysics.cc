@@ -34,7 +34,7 @@ int main(int argc, char** argv){
     report( NOTICE, kModule ) << "\tgeneratePhysics <config file name> <output file name> <number of events> <seed>" << endl << endl;
     return 0;
   }
-  if (argc == 4) {
+  if (argc == 5) {
     int seed = stoi(argv[4]);
     srand48(seed);
   }

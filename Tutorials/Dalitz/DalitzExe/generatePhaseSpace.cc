@@ -28,7 +28,7 @@ int main(int argc, char** argv){
     report( NOTICE, kModule ) << "\tgeneratePhaseSpace <output file name> <number of events> <seed>" << endl << endl;
     return 0;
   }
-  if (argc == 3) {
+  if (argc == 4) {
     int seed = stoi(argv[3]);
     srand48(seed);
   }
