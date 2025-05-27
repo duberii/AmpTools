@@ -3,6 +3,7 @@
 #include "DalitzDataIO/DalitzDataReader.h"
 #include "IUAmpTools/ConfigFileParser.h"
 #include "IUAmpTools/ConfigurationInfo.h"
+#include "IUAmpTools/FitResults.h"
 #include "IUAmpToolsMPI/AmpToolsInterfaceMPI.h"
 #include "IUAmpToolsMPI/DataReaderMPI.h"
 #include <complex>
