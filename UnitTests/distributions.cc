@@ -26,7 +26,7 @@ int main()
 
     string distFile = "models/distFile.csv";
     fout.open(distFile);
-    string cfgname("parserTest.cfg");
+    string cfgname = "parserTest.cfg";
     ConfigFileParser parser(cfgname);
     ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
     AmpToolsInterface ATI(cfgInfo);

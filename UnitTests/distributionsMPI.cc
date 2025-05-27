@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     string distFile = "models/distFile.csv";
-    string cfgname("parserTest.cfg");
+    string cfgname = "parserTest.cfg";
     ConfigFileParser parser(cfgname);
     ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
     AmpToolsInterfaceMPI ATI(cfgInfo);
