@@ -34,8 +34,8 @@ jobs:
                 git config --local user.name "github-actions"
                 cd $UNIT_TESTS
                 cd models
-                mv distFile.cfg distBase.cfg
-                git add distBase.cfg
+                mv distFile.csv distBase.csv
+                git add distBase.csv
                 git commit -m "Added Distributions" 
             - name: Push changes
               uses: ad-m/github-push-action@master
@@ -74,8 +74,8 @@ jobs:
                 git config --local user.name "github-actions"
                 cd $UNIT_TESTS
                 cd models
-                mv distFile.cfg distMPI.cfg
-                git add distMPI.cfg
+                mv distFile.csv distMPI.csv
+                git add distMPI.csv
                 git commit -m "Added Distributions" 
             - name: Push changes
               uses: ad-m/github-push-action@master
@@ -115,8 +115,8 @@ jobs:
                 git config --local user.name "github-actions"
                 cd $UNIT_TESTS
                 cd models
-                mv distFile.cfg distGPU.cfg
-                git add distGPU.cfg
+                mv distFile.csv distGPU.csv
+                git add distGPU.csv
                 git commit -m "Added Distributions" 
             - name: Push changes
               uses: ad-m/github-push-action@master
@@ -155,8 +155,8 @@ jobs:
                 git config --local user.name "github-actions"
                 cd $UNIT_TESTS
                 cd models
-                mv distFile.cfg distMPIGPU.cfg
-                git add distMPIGPU.cfg
+                mv distFile.csv distMPIGPU.csv
+                git add distMPIGPU.csv
                 git commit -m "Added Distributions" 
             - name: Push changes
               uses: ad-m/github-push-action@master
