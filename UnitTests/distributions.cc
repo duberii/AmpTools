@@ -34,6 +34,7 @@ int main()
     AmpToolsInterface ATI(cfgInfo);
     for (int i = 1; i <= 10; i++) {
         cout.rdbuf(null_stream.rdbuf());
+        ATI.resetConfigurationInfo(cfgInfo);
 
         ATI.reinitializePars();
 
