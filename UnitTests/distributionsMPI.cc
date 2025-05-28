@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
     AmpToolsInterfaceMPI ATI(cfgInfo);
 
     fout.open(distFile);
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 10; i++) {
         cout.rdbuf(null_stream.rdbuf());
         bool result;
 

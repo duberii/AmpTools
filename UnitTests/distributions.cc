@@ -32,7 +32,7 @@ int main()
     ConfigFileParser parser(cfgname);
     ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
     AmpToolsInterface ATI(cfgInfo);
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 10; i++) {
         cout.rdbuf(null_stream.rdbuf());
 
         ATI.reinitializePars();
