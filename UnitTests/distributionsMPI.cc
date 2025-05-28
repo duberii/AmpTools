@@ -24,7 +24,8 @@ int main(int argc, char* argv[])
     ostream fout;
 
     if (rank == 0) {
-        fout.open("models/distFile.csv");
+        string distFile = "models/distFile.csv";
+        fout.open(distFile, ios::app);
     }
 
     MPI_Init(&argc, &argv);
@@ -32,7 +33,6 @@ int main(int argc, char* argv[])
     int size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
-    string distFile = "models/distFile.csv";
     string cfgname = "parserTest.cfg";
     AmpToolsInterfaceMPI::registerAmplitude(BreitWigner());
     AmpToolsInterfaceMPI::registerNeg2LnLikContrib(Constraint());
