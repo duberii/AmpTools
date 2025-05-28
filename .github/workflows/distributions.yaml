@@ -11,7 +11,7 @@ jobs:
             - name: Building AmpTools
               run: |
                 git fetch origin
-                git rebase origin/main
+                git rebase origin/master
                 mkdir Tutorials/Dalitz/lib
                 mkdir Tutorials/Dalitz/bin
                 make
@@ -52,7 +52,7 @@ jobs:
             - name: Building AmpTools
               run: |
                 git fetch origin
-                git rebase origin/main
+                git rebase origin/master
                 mkdir Tutorials/Dalitz/lib
                 mkdir Tutorials/Dalitz/bin
                 make mpi
@@ -95,7 +95,7 @@ jobs:
             - name: Building AmpTools
               run: |
                 git fetch origin
-                git rebase origin/main
+                git rebase origin/master
                 mkdir Tutorials/Dalitz/lib
                 mkdir Tutorials/Dalitz/bin
                 make gpu
@@ -137,7 +137,7 @@ jobs:
             - name: Building AmpTools
               run: |
                 git fetch origin
-                git rebase origin/main
+                git rebase origin/master
                 mkdir Tutorials/Dalitz/lib
                 mkdir Tutorials/Dalitz/bin
                 make mpigpu
