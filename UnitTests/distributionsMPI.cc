@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
     } else {
         fout = &null_fout;
     }
-    for (int i = 0; i < 10; i++) {
+    for (int i = 1; i <= 10; i++) {
         cout.rdbuf(null_stream.rdbuf());
         bool result;
 
