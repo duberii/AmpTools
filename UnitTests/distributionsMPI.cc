@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
         // AmpToolsInterface
 
         double neg2LL_before = ATI.likelihood();
-        fout << neg2LL_before << ",";
+        *fout << neg2LL_before << ",";
 
         MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
         fitManager->setStrategy(1);
@@ -66,44 +66,47 @@ int main(int argc, char* argv[])
         fitManager->migradMinimization();
 
         double neg2LL_after = ATI.likelihood();
-        fout << neg2LL_after << ",";
-        fout << ATI.likelihood("base") << ",";
-        fout << ATI.likelihood("constrained") << ",";
-        fout << ATI.likelihood("symmetrized_implicit") << ",";
-        fout << ATI.likelihood("symmetrized_explicit") << ",";
+        *fout << neg2LL_after << ",";
+        *fout << ATI.likelihood("base") << ",";
+        *fout << ATI.likelihood("constrained") << ",";
+        *fout << ATI.likelihood("symmetrized_implicit") << ",";
+        *fout << ATI.likelihood("symmetrized_explicit") << ",";
         ATI.finalizeFit();
 
         // fitResults
 
         const FitResults* fitResults = ATI.fitResults();
         pair<double, double> intensity = fitResults->intensity();
-        fout << intensity.first << ",";
-        fout << intensity.second << ",";
+        *fout << intensity.first << ",";
+        *fout << intensity.second << ",";
         pair<double, double> pd = fitResults->phaseDiff("base::s1::R12", "base::s1::R13");
-        fout << pd.first << ",";
-        fout << pd.second << ",";
+        *fout << pd.first << ",";
+        *fout << pd.second << ",";
         complex<double> ppBase = fitResults->productionParameter("base::s1::R12");
-        fout << ppBase.real() << ",";
-        fout << ppBase.imag() << ",";
+        *fout << ppBase.real() << ",";
+        *fout << ppBase.imag() << ",";
         complex<double> ppConstrained = fitResults->productionParameter("constrained::s2::RC12");
-        fout << ppConstrained.real() << ",";
-        fout << ppConstrained.imag() << ",";
+        *fout << ppConstrained.real() << ",";
+        *fout << ppConstrained.imag() << ",";
         complex<double> ppSymm = fitResults->productionParameter("symmetrized_explicit::s4::RSE12");
-        fout << ppSymm.real() << ",";
-        fout << ppSymm.imag() << ",";
+        *fout << ppSymm.real() << ",";
+        *fout << ppSymm.imag() << ",";
         double bestMinimum = fitResults->bestMinimum();
-        fout << bestMinimum << ",";
+        *fout << bestMinimum << ",";
         vector<string> parNames = fitResults->parNameList();
-        fout << parNames.size() << ",";
+        *fout << parNames.size() << ",";
         vector<double> parVals = fitResults->parValueList();
         for (const double i : parVals) {
-            fout << i << ",";
+            *fout << i << ",";
         }
-        fout << "\n";
+        *fout << "\n";
         cout.rdbuf(old_buf);
         cout << to_string(i) << " iterations done." << endl;
     }
-    fout.close();
+    if (rank == 0) {
+        fout_real.close();
+    }
+
     ATI.exitMPI();
     MPI_Finalize();
     return 0;
