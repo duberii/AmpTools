@@ -25,63 +25,56 @@ int main()
     AmpToolsInterface::registerDataReader(DalitzDataReader());
 
     string distFile = "models/distFile.csv";
-    fout.open(distFile);
+    fout.open(distFile, ios::app);
     string cfgname = "parserTest.cfg";
     ConfigFileParser parser(cfgname);
     ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
     AmpToolsInterface ATI(cfgInfo);
-    for (int i = 1; i <= 10; i++) {
+    AmpToolsInterface::setRandomSeed(12345);
+    double neg2LL_before = ATI.likelihood();
+    fout << neg2LL_before << ",";
 
-        AmpToolsInterface::setRandomSeed(12345);
-        ATI.reinitializePars();
-        
-        // AmpToolsInterface
+    MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
+    fitManager->setStrategy(1);
 
-        double neg2LL_before = ATI.likelihood();
-        fout << neg2LL_before << ",";
+    fitManager->migradMinimization();
 
-        MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
-        fitManager->setStrategy(1);
+    double neg2LL_after = ATI.likelihood();
+    fout << neg2LL_after << ",";
+    fout << ATI.likelihood("base") << ",";
+    fout << ATI.likelihood("constrained") << ",";
+    fout << ATI.likelihood("symmetrized_implicit") << ",";
+    fout << ATI.likelihood("symmetrized_explicit") << ",";
+    ATI.finalizeFit();
 
-        fitManager->migradMinimization();
+    // fitResults
 
-        double neg2LL_after = ATI.likelihood();
-        fout << neg2LL_after << ",";
-        fout << ATI.likelihood("base") << ",";
-        fout << ATI.likelihood("constrained") << ",";
-        fout << ATI.likelihood("symmetrized_implicit") << ",";
-        fout << ATI.likelihood("symmetrized_explicit") << ",";
-        ATI.finalizeFit();
-
-        // fitResults
-
-        const FitResults* fitResults = ATI.fitResults();
-        pair<double, double> intensity = fitResults->intensity();
-        fout << intensity.first << ",";
-        fout << intensity.second << ",";
-        pair<double, double> pd = fitResults->phaseDiff("base::s1::R12", "base::s1::R13");
-        fout << pd.first << ",";
-        fout << pd.second << ",";
-        complex<double> ppBase = fitResults->productionParameter("base::s1::R12");
-        fout << ppBase.real() << ",";
-        fout << ppBase.imag() << ",";
-        complex<double> ppConstrained = fitResults->productionParameter("constrained::s2::RC12");
-        fout << ppConstrained.real() << ",";
-        fout << ppConstrained.imag() << ",";
-        complex<double> ppSymm = fitResults->productionParameter("symmetrized_explicit::s4::RSE12");
-        fout << ppSymm.real() << ",";
-        fout << ppSymm.imag() << ",";
-        double bestMinimum = fitResults->bestMinimum();
-        fout << bestMinimum << ",";
-        vector<string> parNames = fitResults->parNameList();
-        fout << parNames.size() << ",";
-        vector<double> parVals = fitResults->parValueList();
-        for (const double i : parVals) {
-            fout << i << ",";
-        }
-        fout << "\n";
-        cout << to_string(i) << " iterations done." << endl;
+    const FitResults* fitResults = ATI.fitResults();
+    pair<double, double> intensity = fitResults->intensity();
+    fout << intensity.first << ",";
+    fout << intensity.second << ",";
+    pair<double, double> pd = fitResults->phaseDiff("base::s1::R12", "base::s1::R13");
+    fout << pd.first << ",";
+    fout << pd.second << ",";
+    complex<double> ppBase = fitResults->productionParameter("base::s1::R12");
+    fout << ppBase.real() << ",";
+    fout << ppBase.imag() << ",";
+    complex<double> ppConstrained = fitResults->productionParameter("constrained::s2::RC12");
+    fout << ppConstrained.real() << ",";
+    fout << ppConstrained.imag() << ",";
+    complex<double> ppSymm = fitResults->productionParameter("symmetrized_explicit::s4::RSE12");
+    fout << ppSymm.real() << ",";
+    fout << ppSymm.imag() << ",";
+    double bestMinimum = fitResults->bestMinimum();
+    fout << bestMinimum << ",";
+    vector<string> parNames = fitResults->parNameList();
+    fout << parNames.size() << ",";
+    vector<double> parVals = fitResults->parValueList();
+    for (const double i : parVals) {
+        fout << i << ",";
     }
+    fout << "\n";
+
     fout.close();
     return 0;
 }

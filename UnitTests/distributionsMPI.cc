@@ -21,13 +21,12 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    ofstream null_stream("/dev/null");
+    ostream fout;
 
-    ofstream fout_real;
-    ostream* fout;
-    ofstream null_fout("/dev/null");
+    if (rank == 0) {
+        fout.open("models/distFile.csv");
+    }
 
-    streambuf* old_buf = cout.rdbuf(null_stream.rdbuf());
     MPI_Init(&argc, &argv);
     int rank;
     int size;
@@ -41,70 +40,59 @@ int main(int argc, char* argv[])
     ConfigFileParser parser(cfgname);
     ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
     AmpToolsInterfaceMPI ATI(cfgInfo);
+    AmpToolsInterface::setRandomSeed(12345);
 
+    // AmpToolsInterface
+
+    double neg2LL_before = ATI.likelihood();
     if (rank == 0) {
-        fout_real.open("models/distFile.csv");
-        fout = &fout_real;
-    } else {
-        fout = &null_fout;
+        fout << neg2LL_before << ",";
     }
-    for (int j = 1; j <= 10; j++) {
-        cout.rdbuf(null_stream.rdbuf());
-        bool result;
 
-        ATI.reinitializePars();
-        AmpToolsInterface::setRandomSeed(12345);
+    MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
+    fitManager->setStrategy(1);
 
-        // AmpToolsInterface
+    fitManager->migradMinimization();
 
-        double neg2LL_before = ATI.likelihood();
-        *fout << neg2LL_before << ",";
+    double neg2LL_after = ATI.likelihood();
+    if (rank == 0) {
+        fout << neg2LL_after << ",";
+        fout << ATI.likelihood("base") << ",";
+        fout << ATI.likelihood("constrained") << ",";
+        fout << ATI.likelihood("symmetrized_implicit") << ",";
+        fout << ATI.likelihood("symmetrized_explicit") << ",";
+    }
+    ATI.finalizeFit();
 
-        MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
-        fitManager->setStrategy(1);
+    // fitResults
 
-        fitManager->migradMinimization();
-
-        double neg2LL_after = ATI.likelihood();
-        *fout << neg2LL_after << ",";
-        *fout << ATI.likelihood("base") << ",";
-        *fout << ATI.likelihood("constrained") << ",";
-        *fout << ATI.likelihood("symmetrized_implicit") << ",";
-        *fout << ATI.likelihood("symmetrized_explicit") << ",";
-        ATI.finalizeFit();
-
-        // fitResults
-
-        const FitResults* fitResults = ATI.fitResults();
+    const FitResults* fitResults = ATI.fitResults();
+    if (rank == 0) {
         pair<double, double> intensity = fitResults->intensity();
-        *fout << intensity.first << ",";
-        *fout << intensity.second << ",";
+        fout << intensity.first << ",";
+        fout << intensity.second << ",";
         pair<double, double> pd = fitResults->phaseDiff("base::s1::R12", "base::s1::R13");
-        *fout << pd.first << ",";
-        *fout << pd.second << ",";
+        fout << pd.first << ",";
+        fout << pd.second << ",";
         complex<double> ppBase = fitResults->productionParameter("base::s1::R12");
-        *fout << ppBase.real() << ",";
-        *fout << ppBase.imag() << ",";
+        fout << ppBase.real() << ",";
+        fout << ppBase.imag() << ",";
         complex<double> ppConstrained = fitResults->productionParameter("constrained::s2::RC12");
-        *fout << ppConstrained.real() << ",";
-        *fout << ppConstrained.imag() << ",";
+        fout << ppConstrained.real() << ",";
+        fout << ppConstrained.imag() << ",";
         complex<double> ppSymm = fitResults->productionParameter("symmetrized_explicit::s4::RSE12");
-        *fout << ppSymm.real() << ",";
-        *fout << ppSymm.imag() << ",";
+        fout << ppSymm.real() << ",";
+        fout << ppSymm.imag() << ",";
         double bestMinimum = fitResults->bestMinimum();
-        *fout << bestMinimum << ",";
+        fout << bestMinimum << ",";
         vector<string> parNames = fitResults->parNameList();
-        *fout << parNames.size() << ",";
+        fout << parNames.size() << ",";
         vector<double> parVals = fitResults->parValueList();
         for (const double i : parVals) {
-            *fout << i << ",";
+            fout << i << ",";
         }
-        *fout << "\n";
-        cout.rdbuf(old_buf);
-        cout << to_string(j) << " iterations done." << endl;
-    }
-    if (rank == 0) {
-        fout_real.close();
+        fout << "\n";
+        fout.close();
     }
 
     ATI.exitMPI();

@@ -21,7 +21,7 @@ jobs:
                 echo "AMPPLOTTER=$AMPTOOLS_HOME/AmpPlotter" >> $GITHUB_ENV
                 echo "DALITZ=$AMPTOOLS_HOME/Tutorials/Dalitz" >> $GITHUB_ENV
                 echo "UNIT_TESTS=$AMPTOOLS_HOME/UnitTests" >> $GITHUB_ENV
-            - name: Generating Distributions
+            - name: Generating Data
               run: |
                 cd $UNIT_TESTS
                 $DALITZ/bin/generatePhaseSpace phasespace.gen.root 100000 12345
@@ -29,7 +29,14 @@ jobs:
                 $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000 12345
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root 12345
                 $DALITZ/bin/fitAmplitudes parserTest.cfg
-                ./distributions
+            - name: Generating Distributions
+              run: |
+                cd $UNIT_TESTS
+                for n in {1..1000}
+                do
+                  ./distributions
+                  echo "Iteration $n done"
+                done
             - name: Committing changes
               id: commit_changes
               run: |
@@ -72,7 +79,14 @@ jobs:
                 $DALITZ/bin/generatePhysics parserTest.cfg physics.gen.root 100000 12345
                 $DALITZ/bin/toyAcceptance physics.gen.root physics.acc.root 12345
                 $DALITZ/bin/fitAmplitudes parserTest.cfg
-                mpirun -n 3 ./distributionsMPI
+            - name: Generating Distributions
+              run: |
+                cd $UNIT_TESTS
+                for n in {1..1000}
+                do
+                  mpirun -n 3 ./distributionsMPI
+                  echo "Iteration $n done"
+                done
             - name: Committing changes
               run: |
                 git config --local user.email "action@github.com"	                
@@ -115,7 +129,14 @@ jobs:
                 $DALITZ/bin/generatePhysics_GPU parserTest.cfg physics.gen.root 100000 12345
                 $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root 12345
                 $DALITZ/bin/fitAmplitudes_GPU parserTest.cfg
-                ./distributions_GPU
+            - name: Generating Distributions
+              run: |
+                cd $UNIT_TESTS
+                for n in {1..1000}
+                do
+                  ./distributions_GPU
+                  echo "Iteration $n done"
+                done
             - name: Committing changes
               run: |
                 git config --local user.email "action@github.com"	                
@@ -157,7 +178,14 @@ jobs:
                 $DALITZ/bin/generatePhysics_GPU parserTest.cfg physics.gen.root 100000 12345
                 $DALITZ/bin/toyAcceptance_GPU physics.gen.root physics.acc.root 12345
                 mpirun -n 3 $DALITZ/bin/fitAmplitudesMPI_GPU parserTest.cfg
-                mpirun -n 3 ./distributionsMPI_GPU
+            - name: Generating Distributions
+              run: |
+                cd $UNIT_TESTS
+                for n in {1..1000}
+                do
+                  mpirun -n 3 ./distributionsMPI_GPU
+                  echo "Iteration $n done"
+                done
             - name: Committing changes
               run: |
                 git config --local user.email "action@github.com"	                
