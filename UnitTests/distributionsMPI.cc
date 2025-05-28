@@ -53,6 +53,7 @@ int main(int argc, char* argv[])
         bool result;
 
         ATI.reinitializePars();
+        AmpToolsInterface::setRandomSeed(12345);
 
         // AmpToolsInterface
 
