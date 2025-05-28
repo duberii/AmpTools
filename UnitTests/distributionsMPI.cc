@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
     } else {
         fout = &null_fout;
     }
-    for (int i = 1; i <= 10; i++) {
+    for (int j = 1; j <= 10; j++) {
         cout.rdbuf(null_stream.rdbuf());
         bool result;
 
@@ -101,7 +101,7 @@ int main(int argc, char* argv[])
         }
         *fout << "\n";
         cout.rdbuf(old_buf);
-        cout << to_string(i) << " iterations done." << endl;
+        cout << to_string(j) << " iterations done." << endl;
     }
     if (rank == 0) {
         fout_real.close();
