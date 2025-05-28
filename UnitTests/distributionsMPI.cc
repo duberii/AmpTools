@@ -21,7 +21,6 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    ofstream fout;
     ofstream null_stream("/dev/null");
 
     ofstream fout_real;
