@@ -23,10 +23,12 @@ int main(int argc, char* argv[])
 {
     ofstream fout;
     ofstream null_stream("/dev/null");
+
+    ofstream fout_real;
+    ostream* fout;
+    ofstream null_fout("/dev/null");
+
     streambuf* old_buf = cout.rdbuf(null_stream.rdbuf());
-    AmpToolsInterfaceMPI::registerAmplitude(BreitWigner());
-    AmpToolsInterfaceMPI::registerNeg2LnLikContrib(Constraint());
-    AmpToolsInterfaceMPI::registerDataReader(DataReaderMPI<DalitzDataReader>());
     MPI_Init(&argc, &argv);
     int rank;
     int size;
@@ -34,11 +36,19 @@ int main(int argc, char* argv[])
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     string distFile = "models/distFile.csv";
     string cfgname = "parserTest.cfg";
+    AmpToolsInterfaceMPI::registerAmplitude(BreitWigner());
+    AmpToolsInterfaceMPI::registerNeg2LnLikContrib(Constraint());
+    AmpToolsInterfaceMPI::registerDataReader(DataReaderMPI<DalitzDataReader>());
     ConfigFileParser parser(cfgname);
     ConfigurationInfo* cfgInfo = parser.getConfigurationInfo();
     AmpToolsInterfaceMPI ATI(cfgInfo);
 
-    fout.open(distFile);
+    if (rank == 0) {
+        fout_real.open("models/distFile.csv");
+        fout = &fout_real;
+    } else {
+        fout = &null_fout;
+    }
     for (int i = 0; i < 10; i++) {
         cout.rdbuf(null_stream.rdbuf());
         bool result;
