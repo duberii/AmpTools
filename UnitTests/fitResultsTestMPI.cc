@@ -133,6 +133,7 @@ int main( int argc, char* argv[] ) {
     AmpToolsInterfaceMPI::registerNeg2LnLikContrib(Constraint());
     AmpToolsInterfaceMPI::registerDataReader(DataReaderMPI<DalitzDataReader>());
     AmpToolsInterfaceMPI ATI(cfgInfo);
+    AmpToolsInterface::setRandomSeed(12345);
     if (rank==0) {
         vector<bool> results;
     cout << "________________________________________" << endl;
