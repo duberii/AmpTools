@@ -28,10 +28,9 @@ int main(int argc, char* argv[])
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-        string distFile = "models/distFile.csv";
-        fout.open(distFile, ios::app);
+    string distFile = "models/distFile.csv";
+    fout.open(distFile, ios::app);
 
-    
     string cfgname = "parserTest.cfg";
     AmpToolsInterfaceMPI::registerAmplitude(BreitWigner());
     AmpToolsInterfaceMPI::registerNeg2LnLikContrib(Constraint());
@@ -42,26 +41,27 @@ int main(int argc, char* argv[])
     AmpToolsInterface::setRandomSeed(12345);
 
     // AmpToolsInterface
+    if (rank == 0) {
 
-    double neg2LL_before = ATI.likelihood();
+        double neg2LL_before = ATI.likelihood();
         fout << neg2LL_before << ",";
 
-    MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
-    fitManager->setStrategy(1);
+        MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
+        fitManager->setStrategy(1);
 
-    fitManager->migradMinimization();
+        fitManager->migradMinimization();
 
-    double neg2LL_after = ATI.likelihood();
+        double neg2LL_after = ATI.likelihood();
         fout << neg2LL_after << ",";
         fout << ATI.likelihood("base") << ",";
         fout << ATI.likelihood("constrained") << ",";
         fout << ATI.likelihood("symmetrized_implicit") << ",";
         fout << ATI.likelihood("symmetrized_explicit") << ",";
-    ATI.finalizeFit();
+        ATI.finalizeFit();
 
-    // fitResults
+        // fitResults
 
-    const FitResults* fitResults = ATI.fitResults();
+        const FitResults* fitResults = ATI.fitResults();
         pair<double, double> intensity = fitResults->intensity();
         fout << intensity.first << ",";
         fout << intensity.second << ",";
@@ -87,6 +87,7 @@ int main(int argc, char* argv[])
         }
         fout << "\n";
         fout.close();
+    }
 
     ATI.exitMPI();
     MPI_Finalize();
