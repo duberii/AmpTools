@@ -22,17 +22,18 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     ofstream fout;
+    MPI_Init(&argc, &argv);
+    int rank;
+    int size;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
 
     if (rank == 0) {
         string distFile = "models/distFile.csv";
         fout.open(distFile, ios::app);
     }
 
-    MPI_Init(&argc, &argv);
-    int rank;
-    int size;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    
     string cfgname = "parserTest.cfg";
     AmpToolsInterfaceMPI::registerAmplitude(BreitWigner());
     AmpToolsInterfaceMPI::registerNeg2LnLikContrib(Constraint());
