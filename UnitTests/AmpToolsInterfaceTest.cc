@@ -69,6 +69,7 @@ int main() {
     AmpToolsInterface::registerNeg2LnLikContrib(Constraint());
     AmpToolsInterface::registerDataReader(DalitzDataReader());
     AmpToolsInterface ATI(cfgInfo);
+    AmpToolsInterface::setRandomSeed(12345);
     cout << "________________________________________" << endl;
     cout << "Testing AmpToolsInterface from ConfigurationInfo:" << endl;
     cout << "________________________________________" << endl;

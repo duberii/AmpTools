@@ -77,6 +77,7 @@ int main( int argc, char* argv[] ) {
     AmpToolsInterfaceMPI::registerNeg2LnLikContrib(Constraint());
     AmpToolsInterfaceMPI::registerDataReader(DataReaderMPI<DalitzDataReader>());
     AmpToolsInterfaceMPI ATI(cfgInfo);
+    AmpToolsInterfaceMPI::setRandomSeed(12345);
     if (rank == 0){
     cout << "________________________________________" << endl;
     cout << "Testing AmpToolsInterface from ConfigurationInfo:" << endl;
