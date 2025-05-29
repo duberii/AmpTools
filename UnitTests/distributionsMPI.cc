@@ -21,7 +21,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    ostream fout;
+    ofstream fout;
 
     if (rank == 0) {
         string distFile = "models/distFile.csv";
