@@ -28,10 +28,8 @@ int main(int argc, char* argv[])
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
-    if (rank == 0) {
         string distFile = "models/distFile.csv";
         fout.open(distFile, ios::app);
-    }
 
     
     string cfgname = "parserTest.cfg";
@@ -46,9 +44,7 @@ int main(int argc, char* argv[])
     // AmpToolsInterface
 
     double neg2LL_before = ATI.likelihood();
-    if (rank == 0) {
         fout << neg2LL_before << ",";
-    }
 
     MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
     fitManager->setStrategy(1);
@@ -56,19 +52,16 @@ int main(int argc, char* argv[])
     fitManager->migradMinimization();
 
     double neg2LL_after = ATI.likelihood();
-    if (rank == 0) {
         fout << neg2LL_after << ",";
         fout << ATI.likelihood("base") << ",";
         fout << ATI.likelihood("constrained") << ",";
         fout << ATI.likelihood("symmetrized_implicit") << ",";
         fout << ATI.likelihood("symmetrized_explicit") << ",";
-    }
     ATI.finalizeFit();
 
     // fitResults
 
     const FitResults* fitResults = ATI.fitResults();
-    if (rank == 0) {
         pair<double, double> intensity = fitResults->intensity();
         fout << intensity.first << ",";
         fout << intensity.second << ",";
@@ -94,7 +87,6 @@ int main(int argc, char* argv[])
         }
         fout << "\n";
         fout.close();
-    }
 
     ATI.exitMPI();
     MPI_Finalize();
