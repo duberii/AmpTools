@@ -1,6 +1,14 @@
 name: Unit Tests
 run-name: Unit tests for changes made by @${{ github.actor }}
-on: [push]
+on:
+  push:
+    branches: 
+      - '**'  # Triggers on push to any branch
+  pull_request:
+    types:
+      - opened       # When a pull request is created
+      - synchronize  # When commits are pushed to an existing PR
+      - reopened
 jobs:
     Unit-Test-Base:
         runs-on: self-hosted
