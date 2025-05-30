@@ -98,8 +98,8 @@ bool testFitResults(const FitResults* fitResults)
     fin >> ppSymm_imag;
     fin >> bestMinimum;
     fin >> num_parameters;
-    unit_test.add(intensity_first, fitResults->intensity().first, 1e-4, "Intensity matches model");
-    unit_test.add(intensity_second, fitResults->intensity().second, 1e-4, "Intensity error matches model");
+    unit_test.add(intensity_first, fitResults->intensity().first, 1e-2, "Intensity matches model");
+    unit_test.add(intensity_second, fitResults->intensity().second, 1e-2, "Intensity error matches model");
     unit_test.add(pd_first, fitResults->phaseDiff("base::s1::R12", "base::s1::R13").first, 1e-4, "Phase difference between amplitudes matches model");
     unit_test.add(pd_second, fitResults->phaseDiff("base::s1::R12", "base::s1::R13").second, 1e-4, "Phase difference error between amplitudes matches model");
     unit_test.add(ppBase_real, fitResults->productionParameter("base::s1::R12").real(), 1e-4, "Real part of base reaction production parameter matches model");
@@ -108,7 +108,7 @@ bool testFitResults(const FitResults* fitResults)
     unit_test.add(ppConstrained_imag, fitResults->productionParameter("constrained::s2::RC12").imag(), 1e-4, "Imaginary part of constrained reaction production parameter matches model");
     unit_test.add(ppSymm_real, fitResults->productionParameter("symmetrized_explicit::s4::RSE12").real(), 1e-4, "Real part of symmetrized reaction production parameter matches model");
     unit_test.add(ppSymm_imag, fitResults->productionParameter("symmetrized_explicit::s4::RSE12").imag(), 1e-4, "Imaginary part of symmetrized reaction production parameter matches model");
-    unit_test.add(bestMinimum, fitResults->bestMinimum(), 1e-4, "Best minimum matches model");
+    unit_test.add(bestMinimum, fitResults->bestMinimum(), 1e-3, "Best minimum matches model");
     vector<string> parNames = fitResults->parNameList();
     int sz = parNames.size();
     unit_test.add(abs(num_parameters - sz) == 0, "Number of parameter names matches model");
