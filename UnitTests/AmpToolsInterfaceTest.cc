@@ -80,7 +80,7 @@ int main() {
 
     double neg2LL_before;
     fin >> neg2LL_before;
-    unit_test.add(neg2LL_before, ATI.likelihood(), 1., "Likelihood before fit matches model");
+    unit_test.add(neg2LL_before, ATI.likelihood(), 1e-4, "Likelihood before fit matches model");
 
     MinuitMinimizationManager* fitManager = ATI.minuitMinimizationManager();
     fitManager->setStrategy(1);
@@ -89,19 +89,19 @@ int main() {
 
     double neg2LL_after;
     fin >> neg2LL_after;
-    unit_test.add(neg2LL_after, ATI.likelihood(), 1e-1, "Likelihood after fit matches model");
+    unit_test.add(neg2LL_after, ATI.likelihood(), 1e-4, "Likelihood after fit matches model");
     double neg2LL_base;
     fin >> neg2LL_base;
-    unit_test.add(neg2LL_base, ATI.likelihood("base"), 1e-1, "Likelihood of base reaction after fit matches model");
+    unit_test.add(neg2LL_base, ATI.likelihood("base"), 1e-4, "Likelihood of base reaction after fit matches model");
     double neg2LL_constrained;
     fin >> neg2LL_constrained;
-    unit_test.add(neg2LL_constrained, ATI.likelihood("constrained"),1e-1, "Likelihood of constrained reaction after fit matches model");
+    unit_test.add(neg2LL_constrained, ATI.likelihood("constrained"),1e-4, "Likelihood of constrained reaction after fit matches model");
     double neg2LL_symmetrized_implicit;
     fin >> neg2LL_symmetrized_implicit;
-    unit_test.add(neg2LL_symmetrized_implicit,ATI.likelihood("symmetrized_implicit"),1e-1, "Likelihood of symmetrized (implicit) reaction after fit matches model");
+    unit_test.add(neg2LL_symmetrized_implicit,ATI.likelihood("symmetrized_implicit"),1e-4, "Likelihood of symmetrized (implicit) reaction after fit matches model");
     double neg2LL_symmetrized_explicit;
     fin >> neg2LL_symmetrized_explicit;
-    unit_test.add(neg2LL_symmetrized_explicit, ATI.likelihood("symmetrized_explicit"), 1e-1, "Likelihood of symmetrized (explicit) reaction after fit matches model");
+    unit_test.add(neg2LL_symmetrized_explicit, ATI.likelihood("symmetrized_explicit"), 1e-4, "Likelihood of symmetrized (explicit) reaction after fit matches model");
     bool result = unit_test.summary();
 
     if (!result) {
